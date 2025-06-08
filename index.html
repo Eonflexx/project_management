@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Organization & Git Cheat Sheet</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* === Dark Theme === */
+            --Eigengrau: #16161d;
+            --transparent-dark-glass: rgba(18, 18, 18, 0.7);     
+            --text-color: #f2f2f2;
+            --accent-color: #CBFFFA;
+            --input-bg: rgba(0, 0, 0, 0.3);
+            --button-bg: rgba(0, 0, 0, 0.5);
+            --button-hover-bg: rgba(203, 255, 250, 0.2);
+            --border-color: rgba(203, 255, 250, 0.3);
+            --digital-font: 'Orbitron', sans-serif;
+
+            /* Glass & Glow Effects */
+            --frost-glow: rgba(203, 255, 250, 0.05);
+            --glass-blur: blur(10px);
+            --shadow-glow: 0 0 15px rgba(203, 255, 250, 0.3);
+
+            /* === Golden Ratio-Based Spacing === */
+            --spacing-xs: 0.618rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.618rem;
+            --spacing-lg: 2.618rem;
+            --spacing-xl: 4.236rem;
+
+            --font-sm: 0.618rem;
+            --font-base: 1rem;
+            --font-md: 1.618rem;
+            --font-lg: 2.618rem;
+            --font-xl: 4.236rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--Eigengrau) 0%, #0f0f1a 100%);
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated background particles */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 80%, rgba(203, 255, 250, 0.03) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(203, 255, 250, 0.03) 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--spacing-lg);
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+            padding: var(--spacing-xl) 0;
+        }
+
+        .hero h1 {
+            font-family: var(--digital-font);
+            font-size: clamp(2rem, 8vw, var(--font-xl));
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--accent-color) 0%, #ffffff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: var(--shadow-glow);
+            margin-bottom: var(--spacing-md);
+            letter-spacing: 2px;
+        }
+
+        .hero p {
+            font-size: var(--font-md);
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: var(--spacing-lg);
+            gap: var(--spacing-sm);
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            background: var(--transparent-dark-glass);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: var(--digital-font);
+            font-weight: 600;
+            backdrop-filter: var(--glass-blur);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tab-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+            opacity: 0.1;
+            transition: left 0.5s ease;
+        }
+
+        .tab-button:hover::before {
+            left: 100%;
+        }
+
+        .tab-button.active {
+            background: var(--button-hover-bg);
+            border-color: var(--accent-color);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .tab-button:hover {
+            background: var(--button-hover-bg);
+            transform: translateY(-2px);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .card {
+            background: var(--transparent-dark-glass);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: var(--spacing-lg);
+            backdrop-filter: var(--glass-blur);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-color), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-glow);
+            border-color: var(--accent-color);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card h3 {
+            font-family: var(--digital-font);
+            color: var(--accent-color);
+            margin-bottom: var(--spacing-md);
+            font-size: var(--font-md);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .icon {
+            font-size: var(--font-lg);
+            filter: drop-shadow(0 0 5px var(--accent-color));
+        }
+
+        .command-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--spacing-md) 0;
+            font-family: 'Courier New', monospace;
+            font-size: var(--font-sm);
+        }
+
+        .command-table th,
+        .command-table td {
+            padding: var(--spacing-sm);
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .command-table th {
+            background: var(--input-bg);
+            color: var(--accent-color);
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+
+        .command-table tr:hover {
+            background: var(--frost-glow);
+        }
+
+        .code-block {
+            background: var(--input-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: var(--spacing-md);
+            margin: var(--spacing-sm) 0;
+            font-family: 'Courier New', monospace;
+            font-size: var(--font-sm);
+            position: relative;
+            overflow-x: auto;
+        }
+
+        .code-block::before {
+            content: attr(data-lang);
+            position: absolute;
+            top: -8px;
+            right: var(--spacing-sm);
+            background: var(--accent-color);
+            color: var(--Eigengrau);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .highlight {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .step-list {
+            counter-reset: step-counter;
+            list-style: none;
+        }
+
+        .step-list li {
+            counter-increment: step-counter;
+            margin-bottom: var(--spacing-md);
+            padding-left: var(--spacing-lg);
+            position: relative;
+        }
+
+        .step-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: var(--accent-color);
+            color: var(--Eigengrau);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: var(--font-sm);
+        }
+
+        .tip {
+            background: rgba(203, 255, 250, 0.1);
+            border-left: 4px solid var(--accent-color);
+            padding: var(--spacing-md);
+            margin: var(--spacing-md) 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .tip::before {
+            content: "💡 ";
+            font-size: var(--font-md);
+            margin-right: var(--spacing-xs);
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: var(--spacing-xs);
+            right: var(--spacing-xs);
+            background: var(--button-bg);
+            border: 1px solid var(--border-color);
+            color: var(--accent-color);
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .copy-btn:hover {
+            background: var(--button-hover-bg);
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .command-table {
+                font-size: 10px;
+            }
+            
+            .container {
+                padding: var(--spacing-md);
+            }
+        }
+
+        .floating-action {
+            position: fixed;
+            bottom: var(--spacing-lg);
+            right: var(--spacing-lg);
+            background: var(--accent-color);
+            color: var(--Eigengrau);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--font-lg);
+            cursor: pointer;
+            box-shadow: var(--shadow-glow);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .floating-action:hover {
+            transform: scale(1.1) rotate(360deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <h1>PROJECT ORGANIZATION</h1>
+            <p>Master the art of clean code organization and Git workflows across all platforms</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" data-tab="workflow">🚀 Workflow</button>
+            <button class="tab-button" data-tab="commands">⚡ Commands</button>
+            <button class="tab-button" data-tab="automation">🤖 Automation</button>
+            <button class="tab-button" data-tab="tips">💎 Pro Tips</button>
+        </div>
+
+        <div id="workflow" class="tab-content active">
+            <div class="grid">
+                <div class="card">
+                    <h3><span class="icon">📁</span>Project Setup Workflow</h3>
+                    <ol class="step-list">
+                        <li>Create main folder: <span class="highlight">project-warehouse</span></li>
+                        <li>Open in VS Code (Right-click → Open with Code)</li>
+                        <li>Create project subfolders with meaningful names</li>
+                        <li>Move keeper projects into organized structure</li>
+                        <li>Delete unwanted snippets and experiments</li>
+                        <li>Add README.md to document your collection</li>
+                        <li>Initialize Git and push to GitHub</li>
+                    </ol>
+                    
+                    <div class="tip">
+                        Start with 1-2 projects, then add incrementally. This keeps commit history clean and makes each addition meaningful.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3><span class="icon">🏗️</span>Folder Structure</h3>
+                    <div class="code-block" data-lang="Structure">
+project-warehouse/
+├── calculator/
+│   ├── index.html
+│   ├── style.css
+│   └── script.js
+├── weather-widget/
+│   └── .gitkeep
+├── tip-splitter/
+│   └── README.md
+├── animation-lab/
+│   └── .gitkeep
+└── README.md
+                    </div>
+                    
+                    <div class="tip">
+                        Use <span class="highlight">.gitkeep</span> or <span class="highlight">README.md</span> in empty folders so Git tracks them for future projects.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3><span class="icon">📝</span>README Template</h3>
+                    <div class="code-block" data-lang="Markdown">
+# Project Warehouse
+
+A collection of my frontend projects and code experiments.
+
+## Contents
+
+- `/calculator` – Basic calculator with vanilla JS
+- `/weather-widget` – API-based weather display  
+- `/tip-splitter` – Bill splitter for group dining
+- `/animation-lab` – CSS/JS animation experiments
+
+## Usage
+
+Each project is self-contained. Open individual folders to explore.
+
+## Tech Stack
+
+HTML5, CSS3, Vanilla JavaScript
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3><span class="icon">🎯</span>Git Best Practices</h3>
+                    <ol class="step-list">
+                        <li>Initialize repo in main folder</li>
+                        <li>Add projects one by one with meaningful commits</li>
+                        <li>Use descriptive commit messages</li>
+                        <li>Create branches for major features</li>
+                        <li>Keep commits atomic and focused</li>
+                        <li>Use .gitignore for unwanted files</li>
+                    </ol>
+                    
+                    <div class="code-block" data-lang="Git">
+git add tip-splitter/
+git commit -m "Add tip splitter project with responsive design"
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="commands" class="tab-content">
+            <div class="grid">
+                <div class="card">
+                    <h3><span class="icon">💻</span>Cross-Platform Commands</h3>
+                    
+                    <h4 style="color: var(--accent-color); margin: var(--spacing-md) 0;">Windows (PowerShell)</h4>
+                    <ol class="step-list">
+                        <li>Create folder: <code>mkdir project-warehouse</code></li>
+                        <li>Navigate: <code>cd project-warehouse</code></li>
+                        <li>Create file: <code>New-Item .gitkeep -ItemType File</code></li>
+                        <li>List contents: <code>ls</code> or <code>dir</code></li>
+                        <li>Copy folder: <code>Copy-Item -Recurse src dest</code></li>
+                        <li>Remove folder: <code>Remove-Item -Recurse folder</code></li>
+                    </ol>
+
+                    <h4 style="color: var(--accent-color); margin: var(--spacing-md) 0;">macOS/Linux (Bash)</h4>
+                    <ol class="step-list">
+                        <li>Create folder: <code>mkdir project-warehouse</code></li>
+                        <li>Navigate: <code>cd project-warehouse</code></li>
+                        <li>Create file: <code>touch .gitkeep</code></li>
+                        <li>List contents: <code>ls -la</code></li>
+                        <li>Copy folder: <code>cp -r src dest</code></li>
+                        <li>Remove folder: <code>rm -rf folder</code></li>
+                    </ol>
+
+                    <h4 style="color: var(--accent-color); margin: var(--spacing-md) 0;">Git Bash</h4>
+                    <ol class="step-list">
+                        <li>Create folder: <code>mkdir project-warehouse</code></li>
+                        <li>Navigate: <code>cd project-warehouse</code></li>
+                        <li>Create file: <code>touch .gitkeep</code></li>
+                        <li>List contents: <code>ls -la</code></li>
+                        <li>Copy folder: <code>cp -r src dest</code></li>
+                        <li>Remove folder: <code>rm -rf folder</code></li>
+                    </ol>
+                </div>
+
+                <div class="card">
+                    <h3><span class="icon">⚡</span>Essential Git Commands</h3>
+                    <ol class="step-list">
+                        <li>Initialize repository: <code>git init</code></li>
+                        <li>Stage all files: <code>git add .</code></li>
+                        <li>Commit with message: <code>git commit -m "Initial commit of project warehouse"</code></li>
+                        <li>Add remote origin: <code>git remote add origin https://github.com/username/project-warehouse.git</code></li>
+                        <li>Set main branch: <code>git branch -M main</code></li>
+                        <li>Push to GitHub: <code>git push -u origin main</code></li>
+                        <li>Add single project: <code>git add calculator/</code></li>
+                        <li>Commit project: <code>git commit -m "Add calculator project"</code></li>
+                        <li>Check status: <code>git status</code></li>
+                        <li>View commit history: <code>git log --oneline</code></li>
+                        <li>Create and switch branch: <code>git checkout -b feature-branch</code></li>
+                        <li>Switch to main: <code>git checkout main</code></li>
+                        <li>Merge branch: <code>git merge feature-branch</code></li>
+                    </ol>
+                </div>
+
+                <div class="card">
+                    <h3><span class="icon">🔧</span>Repository Creation</h3>
+                    <ol class="step-list">
+                        <li>Go to <span class="highlight">github.com</span></li>
+                        <li>Click <span class="highlight">New repository</span></li>
+                        <li>Name it <span class="highlight">project-warehouse</span></li>
+                        <li>Add description: "Frontend project collection"</li>
+                        <li>Keep it public (or private if preferred)</li>
+                        <li>Don't initialize with README (you'll add your own)</li>
+                        <li>Click <span class="highlight">Create repository</span></li>
+                    </ol>
+
+                    <div class="code-block" data-lang="Terminal">
+git remote add origin https://github.com/username/project-warehouse.git
+git branch -M main
+git push -u origin main
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3><span class="icon">📋</span>Useful .gitignore</h3>
+                    <div class="code-block" data-lang="gitignore">
+# Dependencies
+node_modules/
+npm-debug.log*
+
+# IDE files
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Build outputs
+dist/
+build/
+*.min.js
+*.min.css
+
+# Environment variables
+.env
+.env.local
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="automation" class="tab-content">
+            <div class="grid">
+                <div class="card">
+                    <h3><span class="icon">🤖</span>File Organization Script</h3>
+                    <p>Python script that automatically organizes files by type:</p>
+                    
+                    <ol class="step-list">
+                        <li>Install Python 3.x on your system</li>
+                        <li>Create new file: <code>organize_files.py</code></li>
+                        <li>Import required modules: <code>import os, shutil, pathlib</code></li>
+                        <li>Set watched directory: <code>WATCHED_DIR = Path.home() / "Downloads"</code></li>
+                        <li>Set destination: <code>DEST_DIR = Path.home() / "Organized"</code></li>
+                        <li>Define file type mappings for Images, Documents, Code, etc.</li>
+                        <li>Create organize_files() function</li>
+                        <li>Loop through files in watched directory</li>
+                        <li>Move files to appropriate category folders</li>
+                        <li>Run script: <code>python organize_files.py</code></li>
+                    </ol>
+                    
+                    <div class="tip">
+                        Save as <span class="highlight">organize_files.py</span> and run with <code>python organize_files.py</code>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3><span class="icon">🖥️</span>System Tray Version</h3>
+                    <p>Convert the organizer into a system tray application:</p>
+                    
+                    <ol class="step-list">
+                        <li>Install dependencies: <code>pip install pystray pillow pyinstaller</code></li>
+                        <li>Create <code>file_organizer_tray.py</code> with GUI components</li>
+                        <li>Add system tray icon functionality</li>
+                        <li>Create right-click menu with Start/Stop options</li>
+                        <li>Build executable: <code>pyinstaller --onefile --noconsole file_organizer_tray.py</code></li>
+                        <li>Find your .exe in the <code>/dist</code> folder</li>
+                        <li>Add to Windows startup folder for auto-start</li>
+                        <li>Run executable to see system tray icon</li>
+                    </ol>
+                    
+                    <p>Features:</p>
+                    <ul style="margin-top: var(--spacing-sm); padding-left: var(--spacing-md);">
+                        <li>Runs in system tray</li>
+                        <li>Right-click menu controls</li>
+                        <li>Auto-start on boot option</li>
+                        <li>Custom file type mapping</li>
+                        <li>Real-time monitoring</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3><span class="icon">⏰</span>Automation Schedule</h3>
+                    <p><strong>Windows Task Scheduler:</strong></p>
+                    <ol class="step-list">
+                        <li>Open Task Scheduler</li>
+                        <li>Create Basic Task</li>
+                        <li>Set trigger (hourly/daily)</li>
+                        <li>Action: Start Program</li>
+                        <li>Point to your .exe file</li>
+                    </ol>
+                    
+                    <p><strong>macOS/Linux Cron Setup:</strong></p>
+                    <ol class="step-list">
+                        <li>Open terminal</li>
+                        <li>Edit crontab: <code>crontab -e</code></li>
+                        <li>Add hourly job: <code>0 * * * * /usr/bin/python3 /path/to/organize_files.py</code></li>
+                        <li>Add startup job: <code>@reboot /usr/bin/python3 /path/to/organize_files.py</code></li>
+                        <li>Save and exit editor</li>
+                        <li>Verify with: <code>crontab -l</code></li>
+                    </ol>
+                </div>
+
+                <div class="card">
+                    <h3><span class="icon">🚀</span>Quick Setup Scripts</h3>
+                    <p><strong>Project Creator Script Setup:</strong></p>
+                    <ol class="step-list">
+                        <li>Create new file: <code>create_project.sh</code></li>
+                        <li>Add shebang: <code>#!/bin/bash</code></li>
+                        <li>Get project name: <code>PROJECT_NAME=$1</code></li>
+                        <li>Create project folder: <code>mkdir -p "project-warehouse/$PROJECT_NAME"</code></li>
+                        <li>Navigate to folder: <code>cd "project-warehouse/$PROJECT_NAME"</code></li>
+                        <li>Create files: <code>touch index.html style.css script.js README.md</code></li>
+                        <li>Initialize README: <code>echo "# $PROJECT_NAME" > README.md</code></li>
+                        <li>Stage files: <code>git add .</code></li>
+                        <li>Commit: <code>git commit -m "Initialize $PROJECT_NAME project"</code></li>
+                        <li>Make executable: <code>chmod +x create_project.sh</code></li>
+                        <li>Use script: <code>./create_project.sh my-new-app</code></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div id="tips" class="tab-content">
+            <div class="grid">
+                <div class="card">
+                    <h3><span class="icon">💎</span>Organization Pro Tips</h3>
+                    <ul style="padding-left: var(--spacing-md); space-y: var(--spacing-sm);">
+                        <li><strong>Naming Convention:</strong> Use kebab-case for folders (my-project)</li>
+                        <li><strong>Version Control:</strong> Commit early, commit often with clear messages</li>
+                        <li><strong>Documentation:</strong> Every project needs a README, even small ones</li>
+                        <li><strong>Dependencies:</strong> Use package.json even for vanilla JS projects</li>
+                        <li><strong>Backup Strategy:</strong> GitHub + local backups = peace of mind</li>
+                        <li><strong>Clean Commits:</strong> One feature per commit, descriptive messages</li>
+                    </ul>
+                    
+                    <div class="tip">
+                        Think of your project-warehouse as a museum of your learning journey. Each project tells a story of growth.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3><span class="icon">🎨</span>Folder Structure Templates</h3>
+                    <p><strong>Simple Web Project:</strong></p>
+                    <div class="code-block" data-lang="Structure">
+my-project/
+├── index.html
+├── css/
+│   └── style.css
+├── js/
+│   └── script.js
+├── assets/
+│   └── images/
+└── README.md
+                    </div>
+                    
+                    <p><strong>Advanced Project:</strong></p>
+                    <div class="code-block" data-lang="Structure">
+my-app/
+├── src/
+│   ├── components/
+│   ├── styles/
+│   └── utils/
+├── public/
+├── tests/
+├── docs/
+├── .gitignore
+├── package.json
+└── README.md
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3><span class="icon">🔥</span>Workflow Shortcuts</h3>
+                    <p><strong>VS Code Extensions:</strong></p>
+                    <ul style="padding-left: var(--spacing-md);">
+                        <li>GitLens - Enhanced Git capabilities</li>
+                        <li>Live Server - Instant local server</li>
+                        <li>Auto Rename Tag - HTML tag synchronization</li>
+                        <li>Prettier - Code formatting</li>
+                        <li>Bracket Pair Colorizer - Visual matching</li>
+                    </ul>
+                    
+                    <p><strong>VS Code Keyboard Shortcuts:</strong></p>
+                    <ol class="step-list">
+                        <li>Command Palette: <code>Ctrl/Cmd + Shift + P</code></li>
+                        <li>Toggle Terminal: <code>Ctrl/Cmd + `</code></li>
+                        <li>Toggle Sidebar: <code>Ctrl/Cmd + B</code></li>
+                        <li>Open Explorer: <code>Ctrl/Cmd + Shift + E</code></li>
+                        <li>Open Source Control: <code>Ctrl/Cmd + Shift + G</code></li>
+                        <li>Quick Open File: <code>Ctrl/Cmd + P</code></li>
+                        <li>Split Editor: <code>Ctrl/Cmd + \</code></li>
+                        <li>Close Editor: <code>Ctrl/Cmd + W</code></li>
+                    </ol>
+                </div>
+
+                <div class="card">
+                    <h3><span class="icon">🚨</span>Common Mistakes to Avoid</h3>
+                    <ul style="padding-left: var(--spacing-md);">
+                        <li><strong>Don't:</strong> Commit node_modules or build files</li>
+                        <li><strong>Don't:</strong> Use spaces in folder names (use-hyphens-instead)</li>
+                        <li><strong>Don't:</strong> Force push to main branch</li>
+                        <li><strong>Don't:</strong> Commit without testing first</li>
+                        <li><strong>Don't:</strong> Use generic commit messages like "update"</li>
+                        <li><strong>Don't:</strong> Store sensitive data in public repos</li>
+                    </ul>
+                    
+                    <div class="tip">
+                        When in doubt, create a branch. Branches are cheap, broken main branches are expensive.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="floating-action" onclick="scrollToTop()">
+        ↑
+    </div>
+
+    <script>
+        // Tab functionality
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all tabs and contents
+                document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab and corresponding content
+                button.classList.add('active');
+                document.getElementById(button.getAttribute('data-tab')).classList.add('active');
+            });
+        });
+
+        // Copy functionality for code blocks
+        document.querySelectorAll('.code-block').forEach(block => {
+            const copyBtn = document.createElement ('button');
+            copyBtn.classList.add('copy-button');
+            copyBtn.innerText = 'Copy';
+            block.appendChild(copyBtn);
+
+            copyBtn.addEventListener('click', () => {
+                const code = block.innerText;
+                navigator.clipboard.writeText(code);
+                copyBtn.innerText = 'Copied!';
+                setTimeout(() => copyBtn.innerText = 'Copy', 1000);
+            });
+        });
+    </script>
