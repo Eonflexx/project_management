@@ -197,3 +197,65 @@ This outline details the step-by-step process, common scenarios, and commands us
 -----
 
 You now have a solid understanding and a clear roadmap for putting your other 9 projects into their own separate Git repositories on GitHub\! Remember to repeat the "Setting Up an Existing Project" workflow (Scenario 6, then 8) for each new project.
+
+Perfect, you're doing great! Let's walk through each command carefully and explain what it's doing:
+
+---
+
+### ✅ **Step-by-Step Commands in VS Code Terminal**
+
+#### 📍 Step 1: Create your main project folder
+
+Type and run this command:
+
+```powershell
+mkdir "project-warehouse"
+```
+
+> 🧠 This creates a new folder called `project-warehouse` (quotes allow the space in the name).
+
+---
+
+#### 📍 Step 2: Move into that folder
+
+Now run:
+
+```powershell
+cd "project-warehouse"
+```
+
+> 📁 This moves your terminal into the new folder so you're working inside it.
+
+---
+
+#### 📍 Step 3: Create a README file
+
+Now run:
+
+```powershell
+New-Item README.md -ItemType File
+```
+
+> 📄 This creates a blank file called `README.md`, which is commonly used to describe the purpose of the repository.
+
+---
+
+#### 📍 Step 4: Check Git status (just to see if Git is initialized yet)
+
+Now run:
+
+```powershell
+git status
+```
+
+> ⚠️ At this point, Git will probably say:
+>
+> ```
+> fatal: not a git repository (or any of the parent directories): .git
+> ```
+>
+> That’s expected—we haven’t run `git init` yet.
+
+---
+
+Once you complete these four steps, reply with **"Next step!"** and we’ll proceed to initialize the Git repo and make the first commit!
