@@ -157,5 +157,5 @@ Here's a simple number list summarizing the essential Git commands for managing 
         2.  git add .
         3.  New-Item YourFileName.txt -ItemType File
         4.  git commit -m "Your descriptive commit message here"
-        5.  git push -u origin main
+        <!-- 5.  git push -u origin main   only used initially -->
         6.  git push
