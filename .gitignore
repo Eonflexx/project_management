@@ -1,0 +1,117 @@
+# ---------------------------------------------------------------
+# Core Ignored Files: Common to most projects
+# ---------------------------------------------------------------
+
+# Operating System Files
+# macOS
+.DS_Store
+# Windows
+Thumbs.db
+desktop.ini
+
+# OneDrive sync artifacts
+~$*
+*.lnk
+
+# Temporary files, logs, and backups
+*.tmp
+*.temp
+*.log
+*.bak
+*.old
+*.orig
+*.rej
+*~ # Generic backup/temp files (e.g., foo.txt~)
+#*# # Emacs temporary files (e.g., #foo.txt#)
+.#* # Vim temporary files (e.g., .#foo.txt)
+*.swp # Vim swap files
+*.swo # Vim swap files
+*.junk # Generic junk files
+*.stackdump # Crash reports
+
+# Build artifacts and compiled files (general)
+# These are files generated during compilation or build processes.
+# They should typically not be committed to version control.
+*.o
+*.a
+*.so
+*.lo
+*.la
+*.dll
+*.exe
+*.obj
+*.lib
+*.map # Compiler generated map files
+
+# Archive files
+*.tgz
+*.zip
+*.rar
+*.7z
+*.gz
+
+# ---------------------------------------------------------------
+# Environment & Sensitive Data: Crucial for security
+# ---------------------------------------------------------------
+
+# Environment variables and sensitive data files
+# ALWAYS ignore files containing secrets, API keys, or configurations
+# specific to your local environment.
+.env           # Generic environment variables (e.g., for Node.js, Python Flask)
+.flaskenv      # Flask specific environment variables
+*.env          # Any file ending with .env (e.g., .env.development)
+*.pem          # Private key files
+*.key          # Private key files
+*.cer          # Certificate files
+*.crt          # Certificate files
+*.pfx          # Personal Information Exchange (PFX) certificates
+*.jks          # Java KeyStore files
+*.p12          # PKCS#12 archive file
+*.json         # Use with caution! Only if you are CERTAIN it contains
+               # sensitive config/API keys unique to local dev.
+               # Otherwise, commit JSON files for project data/config.
+
+
+# ---------------------------------------------------------------
+# Language/Framework Specific: Uncomment or add as needed
+# ---------------------------------------------------------------
+
+# Node.js / JavaScript Specific (if using npm/yarn, even for frontend build tools)
+node_modules/       # Directory where npm/yarn installs dependencies
+dist/               # Common output directory for frontend build tools (e.g., Webpack, Rollup)
+npm-debug.log* # npm debug logs
+yarn-debug.log* # Yarn debug logs
+yarn-error.log* # Yarn error logs
+
+# Python Specific (uncomment if your project becomes Python-based)
+# __pycache__/      # Python 3 bytecode cache
+# *.pyc             # Python 2 and 3 compiled bytecode
+# *.pyo             # Optimized Python bytecode
+# .pytest_cache/    # pytest cache directory
+# venv/             # Python virtual environment directory
+# env/              # Common alternative name for Python virtual environment
+# .venv/            # Poetry's default virtual environment directory
+
+# Java Specific (uncomment if your project becomes Java-based)
+# *.class           # Java compiled bytecode
+# *.jar             # Java archive files
+# *.war             # Web application archive files
+# *.ear             # Enterprise application archive files
+# build/            # Common build output directory
+# target/           # Common Maven build output directory
+
+
+# ---------------------------------------------------------------
+# IDE / Editor Specific: For development environment files
+# ---------------------------------------------------------------
+
+# Visual Studio Code specific
+.vscode/            # VS Code workspace settings and debugging configurations
+
+# JetBrains IDEs (IntelliJ IDEA, WebStorm, PyCharm, etc.)
+.idea/              # Directory for project-specific IDE settings
+
+# Eclipse IDE
+.project
+.classpath
+.settings/
