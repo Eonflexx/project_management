@@ -1,0 +1,1420 @@
+
+        :root {
+            /* === Dark Theme === */
+            --Eigengrau: #16161d;
+            --transparent-dark-glass: rgba(18, 18, 18, 0.7);
+            --text-color: #f2f2f2;
+            --accent-color: #CBFFFA;
+            --input-bg: rgba(0, 0, 0, 0.3);
+            --button-bg: rgba(0, 0, 0, 0.5);
+            --button-hover-bg: rgba(203, 255, 250, 0.2);
+            --border-color: rgba(203, 255, 250, 0.3);
+            --digital-font: 'Orbitron', sans-serif;
+
+            /* Glass & Glow Effects */
+            --frost-glow: rgba(203, 255, 250, 0.05);
+            --glass-blur: blur(10px);
+            --shadow-glow: 0 0 15px rgba(203, 255, 250, 0.3);
+
+            /* === Golden Ratio-Based Spacing === */
+            --spacing-xs: 0.618rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.618rem;
+            --spacing-lg: 2.618rem;
+            --spacing-xl: 4.236rem;
+
+            --font-sm: 0.618rem;
+            --font-base: 1rem;
+            --font-md: 1.618rem;
+            --font-lg: 2.618rem;
+            --font-xl: 4.236rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--Eigengrau) 0%, #0f0f1a 100%);
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .repo-man-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 25vh;
+            padding: 4px;
+        }
+
+        .launch-button {
+            display: flex;
+            justify-content: center;
+            background-color: #61dafb;
+            /* React-like blue */
+            color: #282c34;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(97, 218, 251, 0.4);
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        .launch-button:hover {
+            background-color: #21a1f1;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(97, 218, 251, 0.6);
+        }
+
+        /* --- STYLES FOR THE MAIN GUIDE MODAL --- */
+        /* This new modal will contain ALL your previous guide content */
+        .main-guide-modal-overlay {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--transparent-dark-glass);
+            /* Using new variable */
+            backdrop-filter: var(--glass-blur);
+            /* Using new variable */
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            /* Highest z-index for the main modal */
+            animation: fadeIn 0.3s ease-out;
+            padding: var(--spacing-md);
+            /* Using new variable */
+            box-sizing: border-box;
+            /* Include padding in width/height */
+        }
+
+        .main-guide-modal-overlay.active {
+            display: flex;
+        }
+
+        .main-guide-modal-content {
+            background-color: var(--Eigengrau);
+            /* Changed to Eigengrau for modal content */
+            border: 2px solid var(--accent-color);
+            /* Uses the guide's accent color */
+            border-radius: 15px;
+            box-shadow: var(--shadow-glow);
+            /* Uses the guide's glow effect */
+            max-width: 95vw;
+            /* Max width relative to viewport */
+            max-height: 95vh;
+            /* Max height relative to viewport */
+            width: fit-content;
+            /* Adjusts width to content or max-width */
+            height: fit-content;
+            /* Adjusts height to content or max-height */
+            overflow: hidden;
+            /* Prevent scrollbars on the main modal itself */
+            position: relative;
+            animation: slideIn 0.3s ease-out;
+            display: flex;
+            /* Use flexbox to center content */
+            flex-direction: column;
+            /* Stack content vertically */
+        }
+
+        /* Style for the close button of the main modal */
+        .main-guide-close-button {
+            position: absolute;
+            top: var(--spacing-sm);
+            /* Using new variable */
+            right: var(--spacing-md);
+            /* Using new variable */
+            font-size: var(--font-lg);
+            /* Using new variable */
+            color: var(--text-color);
+            /* Using new variable */
+            cursor: pointer;
+            line-height: 1;
+            z-index: 2001;
+            /* Above modal content */
+            transition: color 0.2s ease, transform 0.2s ease;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        }
+
+        .main-guide-close-button:hover {
+            color: var(--accent-color);
+            /* Changes to accent color on hover */
+            transform: scale(1.1);
+        }
+
+        /* --- PREVIOUS GUIDE STYLES (COPIED HERE) --- */
+        /* Define CSS Variables for Theming */
+        :root {
+            /* === Dark Theme === */
+            --Eigengrau: #16161d;
+            --transparent-dark-glass: rgba(18, 18, 18, 0.7);
+            --text-color: #f2f2f2;
+            --accent-color: #CBFFFA;
+            --input-bg: rgba(0, 0, 0, 0.3);
+            --button-bg: rgba(0, 0, 0, 0.5);
+            --button-hover-bg: rgba(203, 255, 250, 0.2);
+            --border-color: rgba(203, 255, 250, 0.3);
+            --digital-font: 'Orbitron', sans-serif;
+
+            /* Glass & Glow Effects */
+            --frost-glow: rgba(203, 255, 250, 0.05);
+            --glass-blur: blur(10px);
+            --shadow-glow: 0 0 15px rgba(203, 255, 250, 0.3);
+
+            /* === Golden Ratio-Based Spacing === */
+            --spacing-xs: 0.618rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.618rem;
+            --spacing-lg: 2.618rem;
+            --spacing-xl: 4.236rem;
+
+            --font-sm: 0.618rem;
+            --font-base: 1rem;
+            --font-md: 1.618rem;
+            --font-lg: 2.618rem;
+            --font-xl: 4.236rem;
+
+            /* === Light Theme === */
+            /* Added for toggle functionality */
+            --light-Eigengrau: #f2f2f7;
+            /* Light background */
+            --light-transparent-dark-glass: rgba(255, 255, 255, 0.8);
+            --light-text-color: #333333;
+            --light-accent-color: #007bff;
+            --light-input-bg: rgba(255, 255, 255, 0.7);
+            --light-button-bg: rgba(0, 123, 255, 0.7);
+            --light-button-hover-bg: rgba(0, 123, 255, 0.2);
+            --light-border-color: rgba(0, 123, 255, 0.3);
+            --light-frost-glow: rgba(0, 123, 255, 0.05);
+            --light-shadow-glow: 0 0 15px rgba(0, 123, 255, 0.3);
+        }
+
+        /* Light Theme Definition */
+        [data-theme="light"] {
+            --Eigengrau: var(--light-Eigengrau);
+            --transparent-dark-glass: var(--light-transparent-dark-glass);
+            --text-color: var(--light-text-color);
+            --accent-color: var(--light-accent-color);
+            --input-bg: var(--light-input-bg);
+            --button-bg: var(--light-button-bg);
+            --button-hover-bg: var(--light-button-hover-bg);
+            --border-color: var(--light-border-color);
+            --frost-glow: var(--light-frost-glow);
+            --shadow-glow: var(--light-shadow-glow);
+            /* Glass blur remains the same for consistency or can be adjusted */
+        }
+
+
+        /* Base Body Styles (only apply to the content *inside* the modal, not the actual <body>) */
+        /* Note: We'll apply these styles to the .container within the modal */
+        .main-guide-modal-content .container {
+            font-family: var(--font-family);
+            /* Retaining Inter as digital font is for specific elements */
+            background-color: var(--Eigengrau);
+            /* Changed to Eigengrau */
+            color: var(--text-color);
+            padding: var(--spacing-lg);
+            /* Using new variable */
+            border-radius: 15px;
+            /* Rounded corners */
+            box-shadow: none;
+            /* No extra shadow on inner container */
+            max-width: 900px;
+            width: 100%;
+            /* Take full width of parent modal content */
+            height: 100%;
+            /* Take full height of parent modal content */
+            box-sizing: border-box;
+            /* Include padding in width */
+            text-align: center;
+            overflow-y: auto;
+            /* Allow scrolling *inside* the guide content */
+            position: relative;
+            z-index: 1;
+            /* Ensure internal content is correctly layered */
+        }
+
+        /* Background Grid/Pattern for "Space Age Flow Chart" look */
+        /* Apply to the inner container to avoid parent body styling issues */
+        .main-guide-modal-content .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(0deg, transparent 24%, var(--border-color) 25%, var(--border-color) 26%, transparent 27%, transparent 74%, var(--border-color) 75%, var(--border-color) 76%, transparent 77%, transparent),
+                linear-gradient(90deg, transparent 24%, var(--border-color) 25%, var(--border-color) 26%, transparent 27%, transparent 74%, var(--border-color) 75%, var(--border-color) 76%, transparent 77%, transparent);
+            background-size: 50px 50px;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--accent-color);
+            margin-bottom: var(--spacing-lg);
+            text-shadow: var(--shadow-glow);
+            /* Using new variable */
+            font-size: var(--font-lg);
+            /* Using new variable */
+        }
+
+        .section-title {
+            color: var(--text-color);
+            font-size: var(--font-md);
+            /* Using new variable */
+            margin-top: var(--spacing-md);
+            /* Using new variable */
+            margin-bottom: var(--spacing-sm);
+            /* Using new variable */
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: var(--spacing-xs);
+            /* Using new variable */
+            text-transform: uppercase;
+            text-align: left;
+        }
+
+        /* Grid for Flowchart Cards */
+        .flow-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-md);
+            /* Using new variable */
+        }
+
+        /* Individual Flowchart Card Styles */
+        .flow-card {
+            background-color: var(--transparent-dark-glass);
+            /* Using new variable */
+            border: 1px solid var(--border-color);
+            /* Using new variable */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            text-align: left;
+            padding: var(--spacing-md);
+            /* Using new variable */
+            backdrop-filter: var(--glass-blur);
+            /* Apply glass blur */
+        }
+
+        /* Hover effect for cards - subtle gradient overlay */
+        .flow-card::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, var(--frost-glow) 0%, transparent 50%, var(--frost-glow) 100%);
+            /* Using new variable */
+            z-index: 0;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .flow-card:hover::before {
+            opacity: 1;
+        }
+
+        .flow-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-glow);
+            /* Using new variable */
+        }
+
+        .card-number {
+            font-size: var(--font-md);
+            /* Using new variable */
+            color: var(--accent-color);
+            position: absolute;
+            top: var(--spacing-sm);
+            /* Using new variable */
+            right: var(--spacing-md);
+            /* Using new variable */
+            font-weight: bold;
+            opacity: 0.8;
+            z-index: 1;
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .flow-card h3 {
+            color: var(--text-color);
+            margin-top: 0;
+            margin-bottom: var(--spacing-sm);
+            /* Using new variable */
+            font-size: var(--font-base);
+            /* Using new variable */
+        }
+
+        .flow-card p {
+            font-size: var(--font-sm);
+            /* Using new variable */
+            color: rgba(242, 242, 242, 0.8);
+            /* Adjusted to new text-color */
+            margin-bottom: var(--spacing-sm);
+            /* Using new variable */
+        }
+
+        .flow-card code {
+            display: block;
+            background-color: var(--input-bg);
+            /* Using new variable */
+            padding: var(--spacing-xs) var(--spacing-sm);
+            /* Using new variable */
+            border-radius: 5px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            /* Keeping monospace for code */
+            font-size: var(--font-sm);
+            /* Using new variable */
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        /* Shortlist button in main container */
+        .shortlist-button {
+            position: absolute;
+            top: var(--spacing-md);
+            /* Using new variable */
+            right: var(--spacing-md);
+            /* Using new variable */
+            background-color: var(--button-bg);
+            /* Using new variable */
+            color: var(--accent-color);
+            /* Text color from accent */
+            padding: var(--spacing-xs) var(--spacing-sm);
+            /* Using new variable */
+            border-radius: 20px;
+            margin-top: 190px;
+            text-transform: uppercase;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: var(--shadow-glow);
+            /* Using new variable */
+            z-index: 3;
+            border: 1px solid var(--border-color);
+            /* Added border */
+        }
+
+        .shortlist-button:hover {
+            background-color: var(--button-hover-bg);
+            /* Using new variable */
+            transform: scale(1.05);
+            color: var(--text-color);
+            /* Hover text color */
+        }
+
+        /* Modal Styles (for internal modals: shortlistModal and stepModal, and new AI modals) */
+        .modal-overlay {
+            display: none;
+            position: absolute;
+            /* Changed to absolute to be relative to its parent .container */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--transparent-dark-glass);
+            /* Using new variable */
+            backdrop-filter: var(--glass-blur);
+            /* Using new variable */
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            /* Higher than normal content, lower than main modal */
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: var(--Eigengrau);
+            /* Changed to Eigengrau */
+            border: 2px solid var(--accent-color);
+            /* Using new variable */
+            border-radius: 15px;
+            padding: var(--spacing-lg);
+            /* Using new variable */
+            box-shadow: var(--shadow-glow);
+            /* Using new variable */
+            max-width: 700px;
+            width: 90%;
+            position: relative;
+            animation: slideIn 0.3s ease-out;
+            max-height: 80vh;
+            overflow-y: auto;
+            /* Enable scrolling for modal content */
+            box-sizing: border-box;
+            z-index: 101;
+        }
+
+        .close-button {
+            position: absolute;
+            top: var(--spacing-sm);
+            /* Using new variable */
+            right: var(--spacing-md);
+            /* Using new variable */
+            font-size: var(--font-lg);
+            /* Using new variable */
+            color: var(--text-color);
+            /* Using new variable */
+            cursor: pointer;
+            line-height: 1;
+            transition: color 0.2s ease;
+        }
+
+        .close-button:hover {
+            color: var(--accent-color);
+            /* Using new variable */
+        }
+
+        .modal-title {
+            color: var(--accent-color);
+            /* Using new variable */
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: var(--spacing-md);
+            /* Using new variable */
+            text-shadow: var(--shadow-glow);
+            /* Using new variable */
+        }
+
+        /* Command Tabs (Windows/Bash) */
+        .command-tabs {
+            display: flex;
+            margin-bottom: var(--spacing-md);
+            /* Using new variable */
+            background-color: var(--button-bg);
+            /* Using new variable */
+            border-radius: 8px;
+            overflow: hidden;
+            padding: var(--spacing-xs);
+            /* Using new variable */
+            justify-content: center;
+            border: 1px solid var(--border-color);
+            /* Added border */
+        }
+
+        .command-tab {
+            flex: 1;
+            padding: var(--spacing-sm) var(--spacing-md);
+            /* Using new variable */
+            text-align: center;
+            cursor: pointer;
+            background-color: transparent;
+            color: var(--text-color);
+            /* Using new variable */
+            border: none;
+            border-radius: 6px;
+            transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+            max-width: 150px;
+        }
+
+        .command-tab.active {
+            background-color: var(--accent-color);
+            /* Using new variable */
+            color: var(--Eigengrau);
+            /* Text color when active */
+            box-shadow: 0 0 10px rgba(203, 255, 250, 0.4);
+            /* Glow when active */
+        }
+
+        .command-tab:hover:not(.active) {
+            background-color: var(--button-hover-bg);
+            /* Using new variable */
+        }
+
+        .command-content-wrapper {
+            border: 1px dashed var(--accent-color);
+            /* Using new variable */
+            padding: var(--spacing-md);
+            /* Using new variable */
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .command-content-wrapper::before {
+            content: "Terminal Commands";
+            position: absolute;
+            top: calc(-1 * var(--spacing-sm));
+            /* Adjust for new spacing */
+            left: var(--spacing-md);
+            /* Using new variable */
+            background-color: var(--Eigengrau);
+            /* Changed to Eigengrau */
+            padding: 0 var(--spacing-xs);
+            /* Using new variable */
+            color: var(--accent-color);
+            /* Using new variable */
+            font-size: var(--font-sm);
+            /* Using new variable */
+            font-weight: bold;
+        }
+
+        .command-display {
+            display: none;
+            margin-bottom: var(--spacing-md);
+            /* Using new variable */
+        }
+
+        .command-display.active {
+            display: block;
+        }
+
+        .command-block {
+            background-color: var(--input-bg);
+            /* Using new variable */
+            padding: var(--spacing-sm);
+            /* Using new variable */
+            border-radius: 8px;
+            margin-bottom: var(--spacing-sm);
+            /* Using new variable */
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            border: 1px solid var(--border-color);
+            /* Added border */
+        }
+
+        .command-block label {
+            flex-basis: 100%;
+            color: var(--text-color);
+            /* Using new variable */
+            font-weight: bold;
+            margin-bottom: var(--spacing-xs);
+            /* Using new variable */
+        }
+
+        .command-input {
+            flex-grow: 1;
+            background-color: var(--Eigengrau);
+            /* Changed to Eigengrau */
+            border: 1px solid var(--border-color);
+            /* Using new variable */
+            color: var(--text-color);
+            /* Using new variable */
+            padding: var(--spacing-xs) var(--spacing-sm);
+            /* Using new variable */
+            border-radius: 5px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: var(--font-base);
+            /* Using new variable */
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            box-sizing: border-box;
+            min-width: 0;
+        }
+
+        .command-input:focus {
+            border-color: var(--accent-color);
+            /* Using new variable */
+            box-shadow: var(--shadow-glow);
+            /* Using new variable */
+        }
+
+        .copy-button {
+            background-color: var(--accent-color);
+            /* Using new variable */
+            color: var(--Eigengrau);
+            /* Text color from Eigengrau */
+            border: none;
+            padding: var(--spacing-xs) var(--spacing-sm);
+            /* Using new variable */
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: var(--spacing-sm);
+            /* Using new variable */
+            transition: background-color 0.2s ease, transform 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .copy-button:hover {
+            background-color: var(--button-hover-bg);
+            /* Using new variable */
+            transform: translateY(-1px);
+            color: var(--text-color);
+            /* Hover text color */
+        }
+
+        .use-case {
+            margin-top: var(--spacing-md);
+            /* Using new variable */
+            padding-top: var(--spacing-md);
+            /* Using new variable */
+            border-top: 1px solid var(--border-color);
+            /* Using new variable */
+        }
+
+        .use-case h4 {
+            color: var(--text-color);
+            /* Using new variable */
+            margin-bottom: var(--spacing-sm);
+            /* Using new variable */
+            font-size: var(--font-base);
+            /* Using new variable */
+        }
+
+        .use-case p {
+            font-size: var(--font-sm);
+            /* Using new variable */
+            line-height: 1.5;
+            color: rgba(242, 242, 242, 0.8);
+            /* Adjusted to new text-color */
+        }
+
+        .use-case ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .use-case ul li {
+            background-color: var(--frost-glow);
+            /* Using new variable */
+            padding: var(--spacing-xs) var(--spacing-sm);
+            /* Using new variable */
+            border-left: 3px solid var(--accent-color);
+            /* Using new variable */
+            margin-bottom: var(--spacing-xs);
+            /* Using new variable */
+            border-radius: 3px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: var(--font-sm);
+            /* Using new variable */
+            color: var(--text-color);
+            /* Using new variable */
+        }
+
+        /* Shortlist Modal Specifics */
+        .shortlist-item {
+            background-color: var(--input-bg);
+            /* Using new variable */
+            padding: var(--spacing-sm);
+            /* Using new variable */
+            border-radius: 8px;
+            margin-bottom: var(--spacing-sm);
+            /* Using new variable */
+            border: 1px solid var(--border-color);
+            /* Added border */
+        }
+
+        .shortlist-item code {
+            font-family: 'Consolas', 'Monaco', monospace;
+            color: var(--text-color);
+            /* Using new variable */
+            display: block;
+            margin-top: var(--spacing-xs);
+            /* Using new variable */
+            background-color: var(--Eigengrau);
+            /* Adjusted to Eigengrau */
+            padding: var(--spacing-xs);
+            /* Using new variable */
+            border-radius: 4px;
+        }
+
+        .shortlist-item p {
+            font-size: var(--font-sm);
+            /* Using new variable */
+            color: rgba(242, 242, 242, 0.7);
+            /* Adjusted to new text-color */
+        }
+
+        /* AI Feature Specific Styles */
+        .ai-input-area {
+            width: 100%;
+            height: 100px;
+            background-color: var(--input-bg);
+            /* Using new variable */
+            border: 1px solid var(--border-color);
+            /* Using new variable */
+            color: var(--text-color);
+            /* Using new variable */
+            padding: var(--spacing-sm);
+            /* Using new variable */
+            border-radius: 5px;
+            font-family: 'Inter', sans-serif;
+            font-size: var(--font-base);
+            /* Using new variable */
+            resize: vertical;
+            outline: none;
+            box-sizing: border-box;
+            margin-bottom: var(--spacing-md);
+            /* Using new variable */
+        }
+
+        .ai-output-area {
+            background-color: var(--input-bg);
+            /* Using new variable */
+            padding: var(--spacing-md);
+            /* Using new variable */
+            border-radius: 8px;
+            min-height: 80px;
+            max-height: 250px;
+            /* Limit height to prevent modal overflow */
+            overflow-y: auto;
+            /* Scroll for long output */
+            color: var(--text-color);
+            /* Using new variable */
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: var(--font-base);
+            /* Using new variable */
+            text-align: left;
+            white-space: pre-wrap;
+            word-break: break-word;
+            border: 1px dashed var(--accent-color);
+            /* Using new variable */
+            margin-top: var(--spacing-md);
+            /* Using new variable */
+            position: relative;
+        }
+
+        .ai-output-area::before {
+            content: "AI Response";
+            position: absolute;
+            top: calc(-1 * var(--spacing-sm));
+            /* Adjust for new spacing */
+            left: var(--spacing-md);
+            /* Using new variable */
+            background-color: var(--Eigengrau);
+            /* Changed to Eigengrau */
+            padding: 0 var(--spacing-xs);
+            /* Using new variable */
+            color: var(--accent-color);
+            /* Using new variable */
+            font-size: var(--font-sm);
+            /* Using new variable */
+            font-weight: bold;
+        }
+
+        .ai-button {
+            background-color: var(--button-bg);
+            /* Using new variable */
+            color: var(--accent-color);
+            /* Text color from accent */
+            border: none;
+            padding: var(--spacing-sm) var(--spacing-md);
+            /* Using new variable */
+            border-radius: 8px;
+            font-size: var(--font-base);
+            /* Using new variable */
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: var(--shadow-glow);
+            /* Using new variable */
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            border: 1px solid var(--border-color);
+            /* Added border */
+        }
+
+        .ai-button:hover {
+            background-color: var(--button-hover-bg);
+            /* Using new variable */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(203, 255, 250, 0.6);
+            /* Adjusted glow */
+            color: var(--text-color);
+            /* Hover text color */
+        }
+
+        .loading-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: var(--spacing-md);
+            /* Using new variable */
+            color: var(--text-color);
+            /* Using new variable */
+            font-size: var(--font-base);
+            /* Using new variable */
+            gap: var(--spacing-sm);
+            /* Using new variable */
+        }
+
+        .loading-spinner {
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            /* Adjusted to white for contrast */
+            border-top: 4px solid var(--accent-color);
+            /* Using new variable */
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Theme toggle button */
+        .theme-toggle {
+            position: fixed;
+            bottom: var(--spacing-lg);
+            /* Using new variable */
+            right: var(--spacing-lg);
+            /* Using new variable */
+            background-color: var(--accent-color);
+            /* Using new variable */
+            color: var(--Eigengrau);
+            /* Text color from Eigengrau */
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5em;
+            /* Retaining fixed size for icon */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: var(--shadow-glow);
+            /* Using new variable */
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            z-index: 2002;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--button-hover-bg);
+            /* Using new variable */
+            transform: rotate(15deg) scale(1.1);
+            box-shadow: 0 0 20px var(--accent-color);
+            /* Adjusted glow */
+            color: var(--text-color);
+            /* Hover text color */
+        }
+
+        /* --- SCROLLBAR STYLES (THE "DOT" EFFECT) --- */
+        /* Apply to the main guide's inner container and internal modals */
+        .main-guide-modal-content .container::-webkit-scrollbar,
+        .modal-content::-webkit-scrollbar {
+            width: var(--spacing-xs);
+            /* Using new variable */
+            height: var(--spacing-xs);
+            /* Using new variable */
+        }
+
+        /* Scrollbar Track */
+        .main-guide-modal-content .container::-webkit-scrollbar-track,
+        .modal-content::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+            /* Subtle track background */
+            border-radius: 10px;
+            /* Rounded track */
+        }
+
+        /* Scrollbar Thumb (the "dot" part) */
+        .main-guide-modal-content .container::-webkit-scrollbar-thumb,
+        .modal-content::-webkit-scrollbar-thumb {
+            background-color: var(--accent-color);
+            /* Matches accent color */
+            border-radius: 10px;
+            /* Fully round for a dot effect */
+            border: 2px solid var(--Eigengrau);
+            /* A small border to contrast with the track */
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        /* Scrollbar Thumb on Hover */
+        .main-guide-modal-content .container::-webkit-scrollbar-thumb:hover,
+        .modal-content::-webkit-scrollbar-thumb:hover {
+            background-color: var(--button-hover-bg);
+            /* Darker accent on hover */
+            border-color: var(--text-color);
+            /* Text color on hover */
+        }
+
+        /* Firefox scrollbar styles */
+        .main-guide-modal-content .container,
+        .modal-content {
+            scrollbar-width: thin;
+            /* "auto" or "none" */
+            scrollbar-color: var(--accent-color) rgba(0, 0, 0, 0.1);
+            /* thumb color track color */
+        }
+
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .launch-button {
+                padding: var(--spacing-sm) var(--spacing-md);
+                /* Using new variables */
+                font-size: var(--font-base);
+                /* Using new variable */
+            }
+
+            .main-guide-modal-content {
+                max-width: 98vw;
+                max-height: 98vh;
+            }
+
+            .main-guide-modal-content .container {
+                padding: var(--spacing-md);
+                /* Using new variable */
+            }
+
+            h1 {
+                font-size: var(--font-md);
+                /* Using new variable */
+            }
+
+            .flow-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                width: 95%;
+                padding: var(--spacing-md);
+                /* Using new variable */
+            }
+
+            .command-block {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .command-input {
+                width: 100%;
+                margin-bottom: var(--spacing-sm);
+                /* Using new variable */
+            }
+
+            .copy-button {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .shortlist-button {
+                top: var(--spacing-sm);
+                /* Using new variable */
+                right: var(--spacing-sm);
+                /* Using new variable */
+                padding: var(--spacing-xs);
+                /* Using new variable */
+                font-size: var(--font-sm);
+                /* Using new variable */
+            }
+
+            .theme-toggle {
+                bottom: var(--spacing-sm);
+                /* Using new variable */
+                right: var(--spacing-sm);
+                /* Using new variable */
+                width: 40px;
+                height: 40px;
+                font-size: 1.2em;
+                /* Retaining fixed size */
+            }
+        }
+
+
+        /* Animated background particles */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 80%, rgba(203, 255, 250, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(203, 255, 250, 0.03) 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--spacing-lg);
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+            padding: var(--spacing-xl) 0;
+        }
+
+        .hero h1 {
+            font-family: var(--digital-font);
+            font-size: clamp(2rem, 8vw, var(--font-xl));
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--accent-color) 0%, #ffffff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: var(--shadow-glow);
+            margin-bottom: var(--spacing-md);
+            letter-spacing: 2px;
+        }
+
+        .hero p {
+            font-size: var(--font-md);
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: var(--spacing-lg);
+            gap: var(--spacing-sm);
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            background: var(--transparent-dark-glass);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: var(--digital-font);
+            font-weight: 600;
+            backdrop-filter: var(--glass-blur);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tab-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+            opacity: 0.1;
+            transition: left 0.5s ease;
+        }
+
+        .tab-button:hover::before {
+            left: 100%;
+        }
+
+        .tab-button.active {
+            background: var(--button-hover-bg);
+            border-color: var(--accent-color);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .tab-button:hover {
+            background: var(--button-hover-bg);
+            transform: translateY(-2px);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .card {
+            background: var(--transparent-dark-glass);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: var(--spacing-lg);
+            backdrop-filter: var(--glass-blur);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-color), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-glow);
+            border-color: var(--accent-color);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card h3 {
+            font-family: var(--digital-font);
+            color: var(--accent-color);
+            margin-bottom: var(--spacing-md);
+            font-size: var(--font-md);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .icon {
+            font-size: var(--font-lg);
+            filter: drop-shadow(0 0 5px var(--accent-color));
+        }
+
+        .command-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--spacing-md) 0;
+            font-family: 'Courier New', monospace;
+            font-size: var(--font-sm);
+        }
+
+        .command-table th,
+        .command-table td {
+            padding: var(--spacing-sm);
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .command-table th {
+            background: var(--input-bg);
+            color: var(--accent-color);
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+
+        .command-table tr:hover {
+            background: var(--frost-glow);
+        }
+
+        .code-block {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: var(--spacing-sm);
+            width: 100%;
+            background: var(--input-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: var(--spacing-md);
+            margin: var(--spacing-sm) 0;
+            font-family: 'Courier New', monospace;
+            font-size: var(--font-sm);
+            position: relative;
+            overflow-x: auto;
+        }
+
+        .code-block::before {
+            content: attr(data-lang);
+            position: absolute;
+            top: -8px;
+            right: var(--spacing-sm);
+            background: var(--accent-color);
+            color: var(--Eigengrau);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .highlight {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .step-list {
+            counter-reset: step-counter;
+            list-style: none;
+        }
+
+        .step-list li {
+            counter-increment: step-counter;
+            margin-bottom: var(--spacing-md);
+            padding-left: var(--spacing-lg);
+            position: relative;
+        }
+
+        .step-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: var(--accent-color);
+            color: var(--Eigengrau);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: var(--font-sm);
+        }
+
+        .tip {
+            background: rgba(203, 255, 250, 0.1);
+            border-left: 4px solid var(--accent-color);
+            padding: var(--spacing-md);
+            margin: var(--spacing-md) 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .tip::before {
+            content: "💡 ";
+            font-size: var(--font-md);
+            margin-right: var(--spacing-xs);
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: var(--spacing-xs);
+            right: var(--spacing-xs);
+            background: var(--button-bg);
+            border: 1px solid var(--border-color);
+            color: var(--accent-color);
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .copy-btn:hover {
+            background: var(--button-hover-bg);
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .command-table {
+                font-size: 10px;
+            }
+
+            .container {
+                padding: var(--spacing-md);
+            }
+        }
+
+        .floating-action {
+            position: fixed;
+            bottom: var(--spacing-lg);
+            right: var(--spacing-lg);
+            background: var(--accent-color);
+            color: var(--Eigengrau);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--font-lg);
+            cursor: pointer;
+            box-shadow: var(--shadow-glow);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .floating-action:hover {
+            transform: scale(1.1) rotate(360deg);
+        }
+    
