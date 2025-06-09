@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project Organization & Git Cheat Sheet</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             /* === Dark Theme === */
             --Eigengrau: #16161d;
-            --transparent-dark-glass: rgba(18, 18, 18, 0.7);     
+            --transparent-dark-glass: rgba(18, 18, 18, 0.7);
             --text-color: #f2f2f2;
             --accent-color: #CBFFFA;
             --input-bg: rgba(0, 0, 0, 0.3);
@@ -53,6 +56,1025 @@
             overflow-x: hidden;
         }
 
+        .repo-man-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 25vh;
+            padding: 4px;
+        }
+
+        .launch-button {
+            display: flex;
+            justify-content: center;
+            background-color: #61dafb;
+            /* React-like blue */
+            color: #282c34;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(97, 218, 251, 0.4);
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        .launch-button:hover {
+            background-color: #21a1f1;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(97, 218, 251, 0.6);
+        }
+
+        /* --- STYLES FOR THE MAIN GUIDE MODAL --- */
+        /* This new modal will contain ALL your previous guide content */
+        .main-guide-modal-overlay {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--transparent-dark-glass);
+            /* Using new variable */
+            backdrop-filter: var(--glass-blur);
+            /* Using new variable */
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            /* Highest z-index for the main modal */
+            animation: fadeIn 0.3s ease-out;
+            padding: var(--spacing-md);
+            /* Using new variable */
+            box-sizing: border-box;
+            /* Include padding in width/height */
+        }
+
+        .main-guide-modal-overlay.active {
+            display: flex;
+        }
+
+        .main-guide-modal-content {
+            background-color: var(--Eigengrau);
+            /* Changed to Eigengrau for modal content */
+            border: 2px solid var(--accent-color);
+            /* Uses the guide's accent color */
+            border-radius: 15px;
+            box-shadow: var(--shadow-glow);
+            /* Uses the guide's glow effect */
+            max-width: 95vw;
+            /* Max width relative to viewport */
+            max-height: 95vh;
+            /* Max height relative to viewport */
+            width: fit-content;
+            /* Adjusts width to content or max-width */
+            height: fit-content;
+            /* Adjusts height to content or max-height */
+            overflow: hidden;
+            /* Prevent scrollbars on the main modal itself */
+            position: relative;
+            animation: slideIn 0.3s ease-out;
+            display: flex;
+            /* Use flexbox to center content */
+            flex-direction: column;
+            /* Stack content vertically */
+        }
+
+        /* Style for the close button of the main modal */
+        .main-guide-close-button {
+            position: absolute;
+            top: var(--spacing-sm);
+            /* Using new variable */
+            right: var(--spacing-md);
+            /* Using new variable */
+            font-size: var(--font-lg);
+            /* Using new variable */
+            color: var(--text-color);
+            /* Using new variable */
+            cursor: pointer;
+            line-height: 1;
+            z-index: 2001;
+            /* Above modal content */
+            transition: color 0.2s ease, transform 0.2s ease;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        }
+
+        .main-guide-close-button:hover {
+            color: var(--accent-color);
+            /* Changes to accent color on hover */
+            transform: scale(1.1);
+        }
+
+        /* --- PREVIOUS GUIDE STYLES (COPIED HERE) --- */
+        /* Define CSS Variables for Theming */
+        :root {
+            /* === Dark Theme === */
+            --Eigengrau: #16161d;
+            --transparent-dark-glass: rgba(18, 18, 18, 0.7);
+            --text-color: #f2f2f2;
+            --accent-color: #CBFFFA;
+            --input-bg: rgba(0, 0, 0, 0.3);
+            --button-bg: rgba(0, 0, 0, 0.5);
+            --button-hover-bg: rgba(203, 255, 250, 0.2);
+            --border-color: rgba(203, 255, 250, 0.3);
+            --digital-font: 'Orbitron', sans-serif;
+
+            /* Glass & Glow Effects */
+            --frost-glow: rgba(203, 255, 250, 0.05);
+            --glass-blur: blur(10px);
+            --shadow-glow: 0 0 15px rgba(203, 255, 250, 0.3);
+
+            /* === Golden Ratio-Based Spacing === */
+            --spacing-xs: 0.618rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.618rem;
+            --spacing-lg: 2.618rem;
+            --spacing-xl: 4.236rem;
+
+            --font-sm: 0.618rem;
+            --font-base: 1rem;
+            --font-md: 1.618rem;
+            --font-lg: 2.618rem;
+            --font-xl: 4.236rem;
+
+            /* === Light Theme === */
+            /* Added for toggle functionality */
+            --light-Eigengrau: #f2f2f7;
+            /* Light background */
+            --light-transparent-dark-glass: rgba(255, 255, 255, 0.8);
+            --light-text-color: #333333;
+            --light-accent-color: #007bff;
+            --light-input-bg: rgba(255, 255, 255, 0.7);
+            --light-button-bg: rgba(0, 123, 255, 0.7);
+            --light-button-hover-bg: rgba(0, 123, 255, 0.2);
+            --light-border-color: rgba(0, 123, 255, 0.3);
+            --light-frost-glow: rgba(0, 123, 255, 0.05);
+            --light-shadow-glow: 0 0 15px rgba(0, 123, 255, 0.3);
+        }
+
+        /* Light Theme Definition */
+        [data-theme="light"] {
+            --Eigengrau: var(--light-Eigengrau);
+            --transparent-dark-glass: var(--light-transparent-dark-glass);
+            --text-color: var(--light-text-color);
+            --accent-color: var(--light-accent-color);
+            --input-bg: var(--light-input-bg);
+            --button-bg: var(--light-button-bg);
+            --button-hover-bg: var(--light-button-hover-bg);
+            --border-color: var(--light-border-color);
+            --frost-glow: var(--light-frost-glow);
+            --shadow-glow: var(--light-shadow-glow);
+            /* Glass blur remains the same for consistency or can be adjusted */
+        }
+
+
+        /* Base Body Styles (only apply to the content *inside* the modal, not the actual <body>) */
+        /* Note: We'll apply these styles to the .container within the modal */
+        .main-guide-modal-content .container {
+            font-family: var(--font-family);
+            /* Retaining Inter as digital font is for specific elements */
+            background-color: var(--Eigengrau);
+            /* Changed to Eigengrau */
+            color: var(--text-color);
+            padding: var(--spacing-lg);
+            /* Using new variable */
+            border-radius: 15px;
+            /* Rounded corners */
+            box-shadow: none;
+            /* No extra shadow on inner container */
+            max-width: 900px;
+            width: 100%;
+            /* Take full width of parent modal content */
+            height: 100%;
+            /* Take full height of parent modal content */
+            box-sizing: border-box;
+            /* Include padding in width */
+            text-align: center;
+            overflow-y: auto;
+            /* Allow scrolling *inside* the guide content */
+            position: relative;
+            z-index: 1;
+            /* Ensure internal content is correctly layered */
+        }
+
+        /* Background Grid/Pattern for "Space Age Flow Chart" look */
+        /* Apply to the inner container to avoid parent body styling issues */
+        .main-guide-modal-content .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(0deg, transparent 24%, var(--border-color) 25%, var(--border-color) 26%, transparent 27%, transparent 74%, var(--border-color) 75%, var(--border-color) 76%, transparent 77%, transparent),
+                linear-gradient(90deg, transparent 24%, var(--border-color) 25%, var(--border-color) 26%, transparent 27%, transparent 74%, var(--border-color) 75%, var(--border-color) 76%, transparent 77%, transparent);
+            background-size: 50px 50px;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--accent-color);
+            margin-bottom: var(--spacing-lg);
+            text-shadow: var(--shadow-glow);
+            /* Using new variable */
+            font-size: var(--font-lg);
+            /* Using new variable */
+        }
+
+        .section-title {
+            color: var(--text-color);
+            font-size: var(--font-md);
+            /* Using new variable */
+            margin-top: var(--spacing-md);
+            /* Using new variable */
+            margin-bottom: var(--spacing-sm);
+            /* Using new variable */
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: var(--spacing-xs);
+            /* Using new variable */
+            text-transform: uppercase;
+            text-align: left;
+        }
+
+        /* Grid for Flowchart Cards */
+        .flow-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-md);
+            /* Using new variable */
+        }
+
+        /* Individual Flowchart Card Styles */
+        .flow-card {
+            background-color: var(--transparent-dark-glass);
+            /* Using new variable */
+            border: 1px solid var(--border-color);
+            /* Using new variable */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            text-align: left;
+            padding: var(--spacing-md);
+            /* Using new variable */
+            backdrop-filter: var(--glass-blur);
+            /* Apply glass blur */
+        }
+
+        /* Hover effect for cards - subtle gradient overlay */
+        .flow-card::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, var(--frost-glow) 0%, transparent 50%, var(--frost-glow) 100%);
+            /* Using new variable */
+            z-index: 0;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .flow-card:hover::before {
+            opacity: 1;
+        }
+
+        .flow-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-glow);
+            /* Using new variable */
+        }
+
+        .card-number {
+            font-size: var(--font-md);
+            /* Using new variable */
+            color: var(--accent-color);
+            position: absolute;
+            top: var(--spacing-sm);
+            /* Using new variable */
+            right: var(--spacing-md);
+            /* Using new variable */
+            font-weight: bold;
+            opacity: 0.8;
+            z-index: 1;
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .flow-card h3 {
+            color: var(--text-color);
+            margin-top: 0;
+            margin-bottom: var(--spacing-sm);
+            /* Using new variable */
+            font-size: var(--font-base);
+            /* Using new variable */
+        }
+
+        .flow-card p {
+            font-size: var(--font-sm);
+            /* Using new variable */
+            color: rgba(242, 242, 242, 0.8);
+            /* Adjusted to new text-color */
+            margin-bottom: var(--spacing-sm);
+            /* Using new variable */
+        }
+
+        .flow-card code {
+            display: block;
+            background-color: var(--input-bg);
+            /* Using new variable */
+            padding: var(--spacing-xs) var(--spacing-sm);
+            /* Using new variable */
+            border-radius: 5px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            /* Keeping monospace for code */
+            font-size: var(--font-sm);
+            /* Using new variable */
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        /* Shortlist button in main container */
+        .shortlist-button {
+            position: absolute;
+            top: var(--spacing-md);
+            /* Using new variable */
+            right: var(--spacing-md);
+            /* Using new variable */
+            background-color: var(--button-bg);
+            /* Using new variable */
+            color: var(--accent-color);
+            /* Text color from accent */
+            padding: var(--spacing-xs) var(--spacing-sm);
+            /* Using new variable */
+            border-radius: 20px;
+            text-transform: uppercase;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: var(--shadow-glow);
+            /* Using new variable */
+            z-index: 3;
+            border: 1px solid var(--border-color);
+            /* Added border */
+        }
+
+        .shortlist-button:hover {
+            background-color: var(--button-hover-bg);
+            /* Using new variable */
+            transform: scale(1.05);
+            color: var(--text-color);
+            /* Hover text color */
+        }
+
+        /* Modal Styles (for internal modals: shortlistModal and stepModal, and new AI modals) */
+        .modal-overlay {
+            display: none;
+            position: absolute;
+            /* Changed to absolute to be relative to its parent .container */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--transparent-dark-glass);
+            /* Using new variable */
+            backdrop-filter: var(--glass-blur);
+            /* Using new variable */
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            /* Higher than normal content, lower than main modal */
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: var(--Eigengrau);
+            /* Changed to Eigengrau */
+            border: 2px solid var(--accent-color);
+            /* Using new variable */
+            border-radius: 15px;
+            padding: var(--spacing-lg);
+            /* Using new variable */
+            box-shadow: var(--shadow-glow);
+            /* Using new variable */
+            max-width: 700px;
+            width: 90%;
+            position: relative;
+            animation: slideIn 0.3s ease-out;
+            max-height: 80vh;
+            overflow-y: auto;
+            /* Enable scrolling for modal content */
+            box-sizing: border-box;
+            z-index: 101;
+        }
+
+        .close-button {
+            position: absolute;
+            top: var(--spacing-sm);
+            /* Using new variable */
+            right: var(--spacing-md);
+            /* Using new variable */
+            font-size: var(--font-lg);
+            /* Using new variable */
+            color: var(--text-color);
+            /* Using new variable */
+            cursor: pointer;
+            line-height: 1;
+            transition: color 0.2s ease;
+        }
+
+        .close-button:hover {
+            color: var(--accent-color);
+            /* Using new variable */
+        }
+
+        .modal-title {
+            color: var(--accent-color);
+            /* Using new variable */
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: var(--spacing-md);
+            /* Using new variable */
+            text-shadow: var(--shadow-glow);
+            /* Using new variable */
+        }
+
+        /* Command Tabs (Windows/Bash) */
+        .command-tabs {
+            display: flex;
+            margin-bottom: var(--spacing-md);
+            /* Using new variable */
+            background-color: var(--button-bg);
+            /* Using new variable */
+            border-radius: 8px;
+            overflow: hidden;
+            padding: var(--spacing-xs);
+            /* Using new variable */
+            justify-content: center;
+            border: 1px solid var(--border-color);
+            /* Added border */
+        }
+
+        .command-tab {
+            flex: 1;
+            padding: var(--spacing-sm) var(--spacing-md);
+            /* Using new variable */
+            text-align: center;
+            cursor: pointer;
+            background-color: transparent;
+            color: var(--text-color);
+            /* Using new variable */
+            border: none;
+            border-radius: 6px;
+            transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+            max-width: 150px;
+        }
+
+        .command-tab.active {
+            background-color: var(--accent-color);
+            /* Using new variable */
+            color: var(--Eigengrau);
+            /* Text color when active */
+            box-shadow: 0 0 10px rgba(203, 255, 250, 0.4);
+            /* Glow when active */
+        }
+
+        .command-tab:hover:not(.active) {
+            background-color: var(--button-hover-bg);
+            /* Using new variable */
+        }
+
+        .command-content-wrapper {
+            border: 1px dashed var(--accent-color);
+            /* Using new variable */
+            padding: var(--spacing-md);
+            /* Using new variable */
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .command-content-wrapper::before {
+            content: "Terminal Commands";
+            position: absolute;
+            top: calc(-1 * var(--spacing-sm));
+            /* Adjust for new spacing */
+            left: var(--spacing-md);
+            /* Using new variable */
+            background-color: var(--Eigengrau);
+            /* Changed to Eigengrau */
+            padding: 0 var(--spacing-xs);
+            /* Using new variable */
+            color: var(--accent-color);
+            /* Using new variable */
+            font-size: var(--font-sm);
+            /* Using new variable */
+            font-weight: bold;
+        }
+
+        .command-display {
+            display: none;
+            margin-bottom: var(--spacing-md);
+            /* Using new variable */
+        }
+
+        .command-display.active {
+            display: block;
+        }
+
+        .command-block {
+            background-color: var(--input-bg);
+            /* Using new variable */
+            padding: var(--spacing-sm);
+            /* Using new variable */
+            border-radius: 8px;
+            margin-bottom: var(--spacing-sm);
+            /* Using new variable */
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            border: 1px solid var(--border-color);
+            /* Added border */
+        }
+
+        .command-block label {
+            flex-basis: 100%;
+            color: var(--text-color);
+            /* Using new variable */
+            font-weight: bold;
+            margin-bottom: var(--spacing-xs);
+            /* Using new variable */
+        }
+
+        .command-input {
+            flex-grow: 1;
+            background-color: var(--Eigengrau);
+            /* Changed to Eigengrau */
+            border: 1px solid var(--border-color);
+            /* Using new variable */
+            color: var(--text-color);
+            /* Using new variable */
+            padding: var(--spacing-xs) var(--spacing-sm);
+            /* Using new variable */
+            border-radius: 5px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: var(--font-base);
+            /* Using new variable */
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            box-sizing: border-box;
+            min-width: 0;
+        }
+
+        .command-input:focus {
+            border-color: var(--accent-color);
+            /* Using new variable */
+            box-shadow: var(--shadow-glow);
+            /* Using new variable */
+        }
+
+        .copy-button {
+            background-color: var(--accent-color);
+            /* Using new variable */
+            color: var(--Eigengrau);
+            /* Text color from Eigengrau */
+            border: none;
+            padding: var(--spacing-xs) var(--spacing-sm);
+            /* Using new variable */
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: var(--spacing-sm);
+            /* Using new variable */
+            transition: background-color 0.2s ease, transform 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .copy-button:hover {
+            background-color: var(--button-hover-bg);
+            /* Using new variable */
+            transform: translateY(-1px);
+            color: var(--text-color);
+            /* Hover text color */
+        }
+
+        .use-case {
+            margin-top: var(--spacing-md);
+            /* Using new variable */
+            padding-top: var(--spacing-md);
+            /* Using new variable */
+            border-top: 1px solid var(--border-color);
+            /* Using new variable */
+        }
+
+        .use-case h4 {
+            color: var(--text-color);
+            /* Using new variable */
+            margin-bottom: var(--spacing-sm);
+            /* Using new variable */
+            font-size: var(--font-base);
+            /* Using new variable */
+        }
+
+        .use-case p {
+            font-size: var(--font-sm);
+            /* Using new variable */
+            line-height: 1.5;
+            color: rgba(242, 242, 242, 0.8);
+            /* Adjusted to new text-color */
+        }
+
+        .use-case ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .use-case ul li {
+            background-color: var(--frost-glow);
+            /* Using new variable */
+            padding: var(--spacing-xs) var(--spacing-sm);
+            /* Using new variable */
+            border-left: 3px solid var(--accent-color);
+            /* Using new variable */
+            margin-bottom: var(--spacing-xs);
+            /* Using new variable */
+            border-radius: 3px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: var(--font-sm);
+            /* Using new variable */
+            color: var(--text-color);
+            /* Using new variable */
+        }
+
+        /* Shortlist Modal Specifics */
+        .shortlist-item {
+            background-color: var(--input-bg);
+            /* Using new variable */
+            padding: var(--spacing-sm);
+            /* Using new variable */
+            border-radius: 8px;
+            margin-bottom: var(--spacing-sm);
+            /* Using new variable */
+            border: 1px solid var(--border-color);
+            /* Added border */
+        }
+
+        .shortlist-item code {
+            font-family: 'Consolas', 'Monaco', monospace;
+            color: var(--text-color);
+            /* Using new variable */
+            display: block;
+            margin-top: var(--spacing-xs);
+            /* Using new variable */
+            background-color: var(--Eigengrau);
+            /* Adjusted to Eigengrau */
+            padding: var(--spacing-xs);
+            /* Using new variable */
+            border-radius: 4px;
+        }
+
+        .shortlist-item p {
+            font-size: var(--font-sm);
+            /* Using new variable */
+            color: rgba(242, 242, 242, 0.7);
+            /* Adjusted to new text-color */
+        }
+
+        /* AI Feature Specific Styles */
+        .ai-input-area {
+            width: 100%;
+            height: 100px;
+            background-color: var(--input-bg);
+            /* Using new variable */
+            border: 1px solid var(--border-color);
+            /* Using new variable */
+            color: var(--text-color);
+            /* Using new variable */
+            padding: var(--spacing-sm);
+            /* Using new variable */
+            border-radius: 5px;
+            font-family: 'Inter', sans-serif;
+            font-size: var(--font-base);
+            /* Using new variable */
+            resize: vertical;
+            outline: none;
+            box-sizing: border-box;
+            margin-bottom: var(--spacing-md);
+            /* Using new variable */
+        }
+
+        .ai-output-area {
+            background-color: var(--input-bg);
+            /* Using new variable */
+            padding: var(--spacing-md);
+            /* Using new variable */
+            border-radius: 8px;
+            min-height: 80px;
+            max-height: 250px;
+            /* Limit height to prevent modal overflow */
+            overflow-y: auto;
+            /* Scroll for long output */
+            color: var(--text-color);
+            /* Using new variable */
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: var(--font-base);
+            /* Using new variable */
+            text-align: left;
+            white-space: pre-wrap;
+            word-break: break-word;
+            border: 1px dashed var(--accent-color);
+            /* Using new variable */
+            margin-top: var(--spacing-md);
+            /* Using new variable */
+            position: relative;
+        }
+
+        .ai-output-area::before {
+            content: "AI Response";
+            position: absolute;
+            top: calc(-1 * var(--spacing-sm));
+            /* Adjust for new spacing */
+            left: var(--spacing-md);
+            /* Using new variable */
+            background-color: var(--Eigengrau);
+            /* Changed to Eigengrau */
+            padding: 0 var(--spacing-xs);
+            /* Using new variable */
+            color: var(--accent-color);
+            /* Using new variable */
+            font-size: var(--font-sm);
+            /* Using new variable */
+            font-weight: bold;
+        }
+
+        .ai-button {
+            background-color: var(--button-bg);
+            /* Using new variable */
+            color: var(--accent-color);
+            /* Text color from accent */
+            border: none;
+            padding: var(--spacing-sm) var(--spacing-md);
+            /* Using new variable */
+            border-radius: 8px;
+            font-size: var(--font-base);
+            /* Using new variable */
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: var(--shadow-glow);
+            /* Using new variable */
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            border: 1px solid var(--border-color);
+            /* Added border */
+        }
+
+        .ai-button:hover {
+            background-color: var(--button-hover-bg);
+            /* Using new variable */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(203, 255, 250, 0.6);
+            /* Adjusted glow */
+            color: var(--text-color);
+            /* Hover text color */
+        }
+
+        .loading-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: var(--spacing-md);
+            /* Using new variable */
+            color: var(--text-color);
+            /* Using new variable */
+            font-size: var(--font-base);
+            /* Using new variable */
+            gap: var(--spacing-sm);
+            /* Using new variable */
+        }
+
+        .loading-spinner {
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            /* Adjusted to white for contrast */
+            border-top: 4px solid var(--accent-color);
+            /* Using new variable */
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Theme toggle button */
+        .theme-toggle {
+            position: fixed;
+            bottom: var(--spacing-lg);
+            /* Using new variable */
+            right: var(--spacing-lg);
+            /* Using new variable */
+            background-color: var(--accent-color);
+            /* Using new variable */
+            color: var(--Eigengrau);
+            /* Text color from Eigengrau */
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5em;
+            /* Retaining fixed size for icon */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: var(--shadow-glow);
+            /* Using new variable */
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            z-index: 2002;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--button-hover-bg);
+            /* Using new variable */
+            transform: rotate(15deg) scale(1.1);
+            box-shadow: 0 0 20px var(--accent-color);
+            /* Adjusted glow */
+            color: var(--text-color);
+            /* Hover text color */
+        }
+
+        /* --- SCROLLBAR STYLES (THE "DOT" EFFECT) --- */
+        /* Apply to the main guide's inner container and internal modals */
+        .main-guide-modal-content .container::-webkit-scrollbar,
+        .modal-content::-webkit-scrollbar {
+            width: var(--spacing-xs);
+            /* Using new variable */
+            height: var(--spacing-xs);
+            /* Using new variable */
+        }
+
+        /* Scrollbar Track */
+        .main-guide-modal-content .container::-webkit-scrollbar-track,
+        .modal-content::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+            /* Subtle track background */
+            border-radius: 10px;
+            /* Rounded track */
+        }
+
+        /* Scrollbar Thumb (the "dot" part) */
+        .main-guide-modal-content .container::-webkit-scrollbar-thumb,
+        .modal-content::-webkit-scrollbar-thumb {
+            background-color: var(--accent-color);
+            /* Matches accent color */
+            border-radius: 10px;
+            /* Fully round for a dot effect */
+            border: 2px solid var(--Eigengrau);
+            /* A small border to contrast with the track */
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        /* Scrollbar Thumb on Hover */
+        .main-guide-modal-content .container::-webkit-scrollbar-thumb:hover,
+        .modal-content::-webkit-scrollbar-thumb:hover {
+            background-color: var(--button-hover-bg);
+            /* Darker accent on hover */
+            border-color: var(--text-color);
+            /* Text color on hover */
+        }
+
+        /* Firefox scrollbar styles */
+        .main-guide-modal-content .container,
+        .modal-content {
+            scrollbar-width: thin;
+            /* "auto" or "none" */
+            scrollbar-color: var(--accent-color) rgba(0, 0, 0, 0.1);
+            /* thumb color track color */
+        }
+
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .launch-button {
+                padding: var(--spacing-sm) var(--spacing-md);
+                /* Using new variables */
+                font-size: var(--font-base);
+                /* Using new variable */
+            }
+
+            .main-guide-modal-content {
+                max-width: 98vw;
+                max-height: 98vh;
+            }
+
+            .main-guide-modal-content .container {
+                padding: var(--spacing-md);
+                /* Using new variable */
+            }
+
+            h1 {
+                font-size: var(--font-md);
+                /* Using new variable */
+            }
+
+            .flow-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                width: 95%;
+                padding: var(--spacing-md);
+                /* Using new variable */
+            }
+
+            .command-block {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .command-input {
+                width: 100%;
+                margin-bottom: var(--spacing-sm);
+                /* Using new variable */
+            }
+
+            .copy-button {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .shortlist-button {
+                top: var(--spacing-sm);
+                /* Using new variable */
+                right: var(--spacing-sm);
+                /* Using new variable */
+                padding: var(--spacing-xs);
+                /* Using new variable */
+                font-size: var(--font-sm);
+                /* Using new variable */
+            }
+
+            .theme-toggle {
+                bottom: var(--spacing-sm);
+                /* Using new variable */
+                right: var(--spacing-sm);
+                /* Using new variable */
+                width: 40px;
+                height: 40px;
+                font-size: 1.2em;
+                /* Retaining fixed size */
+            }
+        }
+
+
         /* Animated background particles */
         body::before {
             content: '';
@@ -62,14 +1084,21 @@
             width: 100%;
             height: 100%;
             background: radial-gradient(circle at 20% 80%, rgba(203, 255, 250, 0.03) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 20%, rgba(203, 255, 250, 0.03) 0%, transparent 50%);
+                radial-gradient(circle at 80% 20%, rgba(203, 255, 250, 0.03) 0%, transparent 50%);
             animation: float 20s ease-in-out infinite;
             pointer-events: none;
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
         }
 
         .container {
@@ -166,8 +1195,15 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .grid {
@@ -253,6 +1289,11 @@
         }
 
         .code-block {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: var(--spacing-sm);
+            width: 100%;
             background: var(--input-bg);
             border: 1px solid var(--border-color);
             border-radius: 10px;
@@ -348,16 +1389,16 @@
             .grid {
                 grid-template-columns: 1fr;
             }
-            
+
             .tabs {
                 flex-direction: column;
                 align-items: center;
             }
-            
+
             .command-table {
                 font-size: 10px;
             }
-            
+
             .container {
                 padding: var(--spacing-md);
             }
@@ -387,11 +1428,295 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="hero">
             <h1>PROJECT ORGANIZATION</h1>
             <p>Master the art of clean code organization and Git workflows across all platforms</p>
+        </div>
+
+        <div class="repo-man-container">
+            <!-- This is the "parent" page content -->
+            <button class="launch-button" onclick="openMainGuideModal()">Open Git Guide</button>
+
+            <!-- MAIN GUIDE MODAL - This wraps all your previous content -->
+            <div id="mainGuideModal" class="main-guide-modal-overlay">
+                <div class="main-guide-modal-content">
+                    <span class="main-guide-close-button" onclick="closeMainGuideModal()">&times;</span>
+
+                    <!-- Theme Toggle Button - Remains fixed even within the modal -->
+                    <button class="theme-toggle" onclick="toggleTheme()">💡</button>
+
+                    <!-- All the previous guide content now lives inside this container -->
+                    <div class="container">
+                        <!-- Button to open the Shortlist Modal -->
+                        <div class="shortlist-button" onclick="openModal()">SHORTLIST</div>
+                        <h1>PROJECT MANAGEMENT: VS CODE & GITHUB</h1>
+
+                        <!-- Initial Setup Section -->
+                        <div class="section-title">Initial Setup</div>
+                        <div class="flow-grid">
+                            <!-- Flow Card for Step 1: Create Project Folder -->
+                            <div class="flow-card" onclick="openStepModal('setup-init-folder')">
+                                <span class="card-number">1</span>
+                                <div class="card-content">
+                                    <h3>Create Project Folder & Navigate</h3>
+                                    <p>Start by creating a root directory for your project and entering it in the VS
+                                        Code terminal.</p>
+                                    <code>
+                                mkdir my-awesome-project
+                                cd my-awesome-project
+                            </code>
+                                </div>
+                            </div>
+                            <!-- Flow Card for Step 2: Create README.md -->
+                            <div class="flow-card" onclick="openStepModal('setup-readme')">
+                                <span class="card-number">2</span>
+                                <div class="card-content">
+                                    <h3>Create README.md File</h3>
+                                    <p>Essential for project documentation, explaining what your project does.</p>
+                                    <code>New-Item README.md -ItemType File</code>
+                                    <p>(Windows PowerShell example)</p>
+                                </div>
+                            </div>
+                            <!-- Flow Card for Step 3: Initialize Git Repo -->
+                            <div class="flow-card" onclick="openStepModal('setup-git-init')">
+                                <span class="card-number">3</span>
+                                <div class="card-content">
+                                    <h3>Initialize Git Repo</h3>
+                                    <p>Turns your local project folder into a Git repository for version control.</p>
+                                    <code>git init</code>
+                                </div>
+                            </div>
+                            <!-- Flow Card for Step 4: Connect to Remote GitHub -->
+                            <div class="flow-card" onclick="openStepModal('setup-connect-remote')">
+                                <span class="card-number">4</span>
+                                <div class="card-content">
+                                    <h3>Connect to Remote GitHub</h3>
+                                    <p>Link your local repository to a new or existing repository on GitHub.</p>
+                                    <code>git remote add origin &lt;repo_url&gt;</code>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Adding Existing VS Code Project Section -->
+                        <div class="section-title">Adding Existing VS Code Project to Repo</div>
+                        <div class="flow-grid">
+                            <!-- Flow Card for Step 1: Stage Project Files -->
+                            <div class="flow-card" onclick="openStepModal('add-project-stage')">
+                                <span class="card-number">1</span>
+                                <div class="card-content">
+                                    <h3>Stage Project Files</h3>
+                                    <p>Add all changed and new files in your current directory to the staging area.</p>
+                                    <code>git add .</code>
+                                </div>
+                            </div>
+                            <!-- Flow Card for Step 2: Check Status -->
+                            <div class="flow-card" onclick="openStepModal('add-project-status')">
+                                <span class="card-number">2</span>
+                                <div class="card-content">
+                                    <h3>Check Current Status</h3>
+                                    <p>Review the state of your working directory and staging area.</p>
+                                    <code>git status</code>
+                                </div>
+                            </div>
+                            <!-- Flow Card for Step 3: Commit Changes -->
+                            <div class="flow-card" onclick="openStepModal('add-project-commit')">
+                                <span class="card-number">3</span>
+                                <div class="card-content">
+                                    <h3>Commit Changes</h3>
+                                    <p>Save your staged changes to your local repository's history with a message.</p>
+                                    <code>git commit -m "Initial project commit"</code>
+                                </div>
+                            </div>
+                            <!-- Flow Card for Step 4: Push Changes -->
+                            <div class="flow-card" onclick="openStepModal('add-project-push')">
+                                <span class="card-number">4</span>
+                                <div class="card-content">
+                                    <h3>Push Changes Online</h3>
+                                    <p>Upload your local commits to your linked GitHub repository.</p>
+                                    <code>git push -u origin main</code>
+                                    <p>(First push example)</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- NEW: AI-Powered Git Tools Section -->
+                        <div class="section-title">AI-Powered Git Tools</div>
+                        <div class="flow-grid">
+                            <!-- Flow Card for Commit Message Generator -->
+                            <div class="flow-card" onclick="openAIGeneratorModal()">
+                                <span class="card-number">✨</span>
+                                <div class="card-content">
+                                    <h3>Generate Commit Message</h3>
+                                    <p>Let AI craft the perfect commit message based on your changes.</p>
+                                    <button class="ai-button">Generate Message ✨</button>
+                                </div>
+                            </div>
+                            <!-- Flow Card for Git Command Explainer -->
+                            <div class="flow-card" onclick="openAIExplainerModal()">
+                                <span class="card-number">✨</span>
+                                <div class="card-content">
+                                    <h3>Explain Git Command</h3>
+                                    <p>Get clear, concise explanations for any Git command from AI.</p>
+                                    <button class="ai-button">Explain Command ✨</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Shortlist Modal (Internal Modal) -->
+                    <div id="shortlistModal" class="modal-overlay">
+                        <div class="modal-content">
+                            <span class="close-button" onclick="closeModal()">&times;</span>
+                            <h2 class="modal-title">Your Essential Git Commands Shortlist</h2>
+
+                            <div class="shortlist-item">
+                                <p>1. Check current status:</p>
+                                <code>git status</code>
+                                <p><strong>Use Case:</strong> Before adding or committing, this command shows you which
+                                    files have been modified, are staged for commit, or are untracked. Essential for
+                                    understanding your repository's state.</p>
+                            </div>
+
+                            <div class="shortlist-item">
+                                <p>2. Stage all changes:</p>
+                                <code>git add .</code>
+                                <p><strong>Use Case:</strong> Adds all new, modified, and deleted files in your current
+                                    directory and its subdirectories to the staging area, preparing them for the next
+                                    commit.</p>
+                            </div>
+
+                            <div class="shortlist-item">
+                                <p>3. Create a new file (Windows PowerShell):</p>
+                                <code>New-Item YourFileName.txt -ItemType File</code>
+                                <p><strong>Use Case:</strong> Quickly create new files directly from your VS Code
+                                    terminal (if using PowerShell) for documentation, configuration, or new code files.
+                                </p>
+                            </div>
+                            <div class="shortlist-item">
+                                <p>3. Create a new file (Bash/Mac/Linux):</p>
+                                <code>touch YourFileName.txt</code>
+                                <p><strong>Use Case:</strong> The equivalent of `New-Item` for Bash/Unix-like
+                                    environments, commonly used to create empty files.</p>
+                            </div>
+
+                            <div class="shortlist-item">
+                                <p>4. Commit with a descriptive message:</p>
+                                <code>git commit -m "Your descriptive commit message here"</code>
+                                <p><strong>Use Case:</strong> Saves your staged changes to your local repository's
+                                    history. The message should clearly describe the changes made in that commit.</p>
+                                <h4>Refactor Commit Scenarios:</h4>
+                                <ul>
+                                    <li><code>feat: Add user authentication module</code> (New Feature)</li>
+                                    <li><code>fix: Resolve critical bug in login flow</code> (Bug Fix)</li>
+                                    <li><code>docs: Update README with setup instructions</code> (Documentation)</li>
+                                    <li><code>refactor: Improve naming conventions in user service</code> (Code
+                                        Refactoring)</li>
+                                    <li><code>chore: Update dependencies</code> (Maintenance/Chores)</li>
+                                </ul>
+                            </div>
+
+                            <div class="shortlist-item">
+                                <p>5. Initial push (only used initially for a new branch):</p>
+                                <code>git push -u origin main</code>
+                                <p><strong>Use Case:</strong> This command is typically used for the *first* push of a
+                                    new branch (like `main`) to a remote repository. The `-u` flag sets the upstream
+                                    branch, meaning `git push` (without arguments) will work for subsequent pushes.</p>
+                            </div>
+
+                            <div class="shortlist-item">
+                                <p>6. Subsequent pushes:</p>
+                                <code>git push</code>
+                                <p><strong>Use Case:</strong> After the initial push, this command is used to upload all
+                                    your new local commits to the remote repository. Simpler because the upstream is
+                                    already set.</p>
+                            </div>
+
+                            <div class="shortlist-item">
+                                <p>Juicy Extra 1: Interrupt a running command:</p>
+                                <code>Ctrl + C</code>
+                                <p><strong>Use Case:</strong> Crucial for stopping long-running processes, commands that
+                                    are stuck, or if you accidentally initiated a command you didn't intend to. Works in
+                                    most terminal environments (Windows, macOS, Linux).</p>
+                            </div>
+
+                            <div class="shortlist-item">
+                                <p>Juicy Extra 2: Print Working Directory:</p>
+                                <code>pwd</code> (Mac/Linux/Bash) <br>
+                                <code>Get-Location</code> or <code>cd</code> (Windows PowerShell, `cd` without arguments
+                                shows current directory)
+                                <p><strong>Use Case:</strong> Always know where you are! This command displays the full
+                                    path of your current directory in the terminal. Essential for navigation and
+                                    ensuring you're running commands in the correct location.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step-by-Step Modal (Internal Modal) -->
+                    <div id="stepModal" class="modal-overlay">
+                        <div class="modal-content">
+                            <span class="close-button" onclick="closeStepModal()">&times;</span>
+                            <h2 class="modal-title" id="stepTitle"></h2>
+
+                            <div class="command-tabs">
+                                <!-- Tabs for switching between Windows and Bash commands -->
+                                <button class="command-tab active" data-system="windows"
+                                    onclick="switchCommandSystem('windows')">Windows</button>
+                                <button class="command-tab" data-system="bash"
+                                    onclick="switchCommandSystem('bash')">Bash</button>
+                            </div>
+
+                            <div class="command-content-wrapper">
+                                <div id="stepContent" class="command-display active">
+                                    <!-- Dynamic content will be loaded here by JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- NEW: Commit Message Generator Modal (Internal AI Modal) -->
+                    <div id="commitMessageGeneratorModal" class="modal-overlay">
+                        <div class="modal-content">
+                            <span class="close-button" onclick="closeAIGeneratorModal()">&times;</span>
+                            <h2 class="modal-title">✨ AI Commit Message Generator</h2>
+                            <p>Describe the changes you've made in your code, and I'll suggest a concise Git commit
+                                message for you.</p>
+                            <textarea id="commitChangesInput" class="ai-input-area"
+                                placeholder="e.g., 'Added user login functionality and fixed a bug in the navigation bar.'"></textarea>
+                            <button class="ai-button" onclick="generateCommitMessage()">Generate Message ✨</button>
+                            <div id="loadingIndicatorCommit" class="loading-indicator" style="display: none;">
+                                <div class="loading-spinner"></div> Generating...
+                            </div>
+                            <div id="commitMessageOutput" class="ai-output-area">
+                                Your generated commit message will appear here.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- NEW: Git Command Explainer Modal (Internal AI Modal) -->
+                    <div id="commandExplainerModal" class="modal-overlay">
+                        <div class="modal-content">
+                            <span class="close-button" onclick="closeAIExplainerModal()">&times;</span>
+                            <h2 class="modal-title">✨ AI Git Command Explainer</h2>
+                            <p>Enter any Git command (e.g., `git rebase -i`, `git cherry-pick`), and I'll explain it to
+                                you.</p>
+                            <input type="text" id="gitCommandInput" class="ai-input-area"
+                                placeholder="e.g., git merge --no-ff">
+                            <button class="ai-button" onclick="explainGitCommand()">Explain Command ✨</button>
+                            <div id="loadingIndicatorExplain" class="loading-indicator" style="display: none;">
+                                <div class="loading-spinner"></div> Explaining...
+                            </div>
+                            <div id="gitCommandExplanationOutput" class="ai-output-area">
+                                The explanation will appear here.
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
 
         <div class="tabs">
@@ -414,14 +1739,16 @@
                         <li>Add README.md to document your collection</li>
                         <li>Initialize Git and push to GitHub</li>
                     </ol>
-                    
+
                     <div class="tip">
                         <p>
-                            Start with 1-2 projects, then add incrementally. This keeps commit history clean and makes each addition meaningful.
+                            Start with 1-2 projects, then add incrementally. This keeps commit history clean and makes
+                            each addition meaningful.
                         </p>
                         <br>
                         <p>
-                            This is the cycle! Make changes, git add, git commit, git push. Keep practicing this, and it will become second nature
+                            This is the cycle! Make changes, git add, git commit, git push. Keep practicing this, and it
+                            will become second nature
                         </p>
                     </div>
                 </div>
@@ -429,46 +1756,51 @@
                 <div class="card">
                     <h3><span class="icon">🏗️</span>Folder Structure</h3>
                     <div class="code-block" data-lang="Structure">
-project-warehouse/
-├── calculator/
-│   ├── index.html
-│   ├── style.css
-│   └── script.js
-├── weather-widget/
-│   └── .gitkeep
-├── tip-splitter/
-│   └── README.md
-├── animation-lab/
-│   └── .gitkeep
-└── README.md
+                        <pre class="code-block"><code> 
+                        project-warehouse/
+                        ├── calculator/
+                        │ ├── index.html
+                        │ ├── style.css
+                        │ └── script.js
+                        ├── weather-widget/
+                        │ └── .gitkeep
+                        ├── tip-splitter/
+                        │ └── README.md
+                        ├── animation-lab/
+                        │ └── .gitkeep
+                        └── README.md
+                        </code></pre>
                     </div>
-                    
+
                     <div class="tip">
-                        Use <span class="highlight">.gitkeep</span> or <span class="highlight">README.md</span> in empty folders so Git tracks them for future projects.
+                        Use <span class="highlight">.gitkeep</span> or <span class="highlight">README.md</span> in empty
+                        folders so Git tracks them for future projects.
                     </div>
                 </div>
 
                 <div class="card">
                     <h3><span class="icon">📝</span>README Template</h3>
                     <div class="code-block" data-lang="Markdown">
-# Project Warehouse
+                        <pre class="code-block"><code>
+                        # Project Warehouse
 
-A collection of my frontend projects and code experiments.
+                        A collection of my frontend projects and code experiments.
 
-## Contents
+                        ## Contents
 
-- `/calculator` – Basic calculator with vanilla JS
-- `/weather-widget` – API-based weather display  
-- `/tip-splitter` – Bill splitter for group dining
-- `/animation-lab` – CSS/JS animation experiments
+                        - `/calculator` – Basic calculator with vanilla JS
+                        - `/weather-widget` – API-based weather display
+                        - `/tip-splitter` – Bill splitter for group dining
+                        - `/animation-lab` – CSS/JS animation experiments
 
-## Usage
+                        ## Usage
 
-Each project is self-contained. Open individual folders to explore.
+                        Each project is self-contained. Open individual folders to explore.
 
-## Tech Stack
+                        ## Tech Stack
 
-HTML5, CSS3, Vanilla JavaScript
+                        HTML5, CSS3, Vanilla JavaScript
+                        </code></pre>
                     </div>
                 </div>
 
@@ -482,10 +1814,10 @@ HTML5, CSS3, Vanilla JavaScript
                         <li>Keep commits atomic and focused</li>
                         <li>Use .gitignore for unwanted files</li>
                     </ol>
-                    
+
                     <div class="code-block" data-lang="Git">
-git add tip-splitter/
-git commit -m "Add tip splitter project with responsive design"
+                        git add tip-splitter/
+                        git commit -m "Add tip splitter project with responsive design"
                     </div>
                 </div>
             </div>
@@ -495,7 +1827,7 @@ git commit -m "Add tip splitter project with responsive design"
             <div class="grid">
                 <div class="card">
                     <h3><span class="icon">💻</span>Cross-Platform Commands</h3>
-                    
+
                     <h4 style="color: var(--accent-color); margin: var(--spacing-md) 0;">Windows (PowerShell)</h4>
                     <ol class="step-list">
                         <li>Create folder: <code>mkdir project-warehouse</code></li>
@@ -533,7 +1865,9 @@ git commit -m "Add tip splitter project with responsive design"
                         <li>Initialize repository: <code>git init</code></li>
                         <li>Stage all files: <code>git add .</code></li>
                         <li>Commit with message: <code>git commit -m "Initial commit of project warehouse"</code></li>
-                        <li>Add remote origin: <code>git remote add origin https://github.com/username/project-warehouse.git</code></li>
+                        <li>Add remote origin:
+                            <code>git remote add origin https://github.com/username/project-warehouse.git</code>
+                        </li>
                         <li>Set main branch: <code>git branch -M main</code></li>
                         <li>Push to GitHub: <code>git push -u origin main</code></li>
                         <li>Add single project: <code>git add calculator/</code></li>
@@ -559,44 +1893,44 @@ git commit -m "Add tip splitter project with responsive design"
                     </ol>
 
                     <div class="code-block" data-lang="Terminal">
-git remote add origin https://github.com/username/project-warehouse.git
-git branch -M main
-git push -u origin main
+                        git remote add origin https://github.com/username/project-warehouse.git
+                        git branch -M main
+                        git push -u origin main
                     </div>
                 </div>
 
                 <div class="card">
                     <h3><span class="icon">📋</span>Useful .gitignore</h3>
                     <div class="code-block" data-lang="gitignore">
-# Dependencies
-node_modules/
-npm-debug.log*
+                        # Dependencies
+                        node_modules/
+                        npm-debug.log*
 
-# IDE files
-.vscode/settings.json
-.idea/
-*.swp
-*.swo
+                        # IDE files
+                        .vscode/settings.json
+                        .idea/
+                        *.swp
+                        *.swo
 
-# OS files
-.DS_Store
-Thumbs.db
-desktop.ini
+                        # OS files
+                        .DS_Store
+                        Thumbs.db
+                        desktop.ini
 
-# Build outputs
-dist/
-build/
-*.min.js
-*.min.css
+                        # Build outputs
+                        dist/
+                        build/
+                        *.min.js
+                        *.min.css
 
-# Environment variables
-.env
-.env.local
+                        # Environment variables
+                        .env
+                        .env.local
 
-# Temporary files
-*.tmp
-*.temp
-*.log
+                        # Temporary files
+                        *.tmp
+                        *.temp
+                        *.log
                     </div>
                 </div>
             </div>
@@ -607,7 +1941,7 @@ build/
                 <div class="card">
                     <h3><span class="icon">🤖</span>File Organization Script</h3>
                     <p>Python script that automatically organizes files by type:</p>
-                    
+
                     <ol class="step-list">
                         <li>Install Python 3.x on your system</li>
                         <li>Create new file: <code>organize_files.py</code></li>
@@ -620,16 +1954,17 @@ build/
                         <li>Move files to appropriate category folders</li>
                         <li>Run script: <code>python organize_files.py</code></li>
                     </ol>
-                    
+
                     <div class="tip">
-                        Save as <span class="highlight">organize_files.py</span> and run with <code>python organize_files.py</code>
+                        Save as <span class="highlight">organize_files.py</span> and run with
+                        <code>python organize_files.py</code>
                     </div>
                 </div>
 
                 <div class="card">
                     <h3><span class="icon">🖥️</span>System Tray Version</h3>
                     <p>Convert the organizer into a system tray application:</p>
-                    
+
                     <ol class="step-list">
                         <li>Install dependencies: <code>pip install pystray pillow pyinstaller</code></li>
                         <li>Create <code>file_organizer_tray.py</code> with GUI components</li>
@@ -640,7 +1975,7 @@ build/
                         <li>Add to Windows startup folder for auto-start</li>
                         <li>Run executable to see system tray icon</li>
                     </ol>
-                    
+
                     <p>Features:</p>
                     <ul style="margin-top: var(--spacing-sm); padding-left: var(--spacing-md);">
                         <li>Runs in system tray</li>
@@ -661,7 +1996,7 @@ build/
                         <li>Action: Start Program</li>
                         <li>Point to your .exe file</li>
                     </ol>
-                    
+
                     <p><strong>macOS/Linux Cron Setup:</strong></p>
                     <ol class="step-list">
                         <li>Open terminal</li>
@@ -705,9 +2040,10 @@ build/
                         <li><strong>Backup Strategy:</strong> GitHub + local backups = peace of mind</li>
                         <li><strong>Clean Commits:</strong> One feature per commit, descriptive messages</li>
                     </ul>
-                    
+
                     <div class="tip">
-                        Think of your project-warehouse as a museum of your learning journey. Each project tells a story of growth.
+                        Think of your project-warehouse as a museum of your learning journey. Each project tells a story
+                        of growth.
                     </div>
                 </div>
 
@@ -715,6 +2051,7 @@ build/
                     <h3><span class="icon">🎨</span>Folder Structure Templates</h3>
                     <p><strong>Simple Web Project:</strong></p>
                     <div class="code-block" data-lang="Structure">
+                        <pre><code>
 my-project/
 ├── index.html
 ├── css/
@@ -724,21 +2061,22 @@ my-project/
 ├── assets/
 │   └── images/
 └── README.md
+    </code></pre>
                     </div>
-                    
+
                     <p><strong>Advanced Project:</strong></p>
                     <div class="code-block" data-lang="Structure">
-my-app/
-├── src/
-│   ├── components/
-│   ├── styles/
-│   └── utils/
-├── public/
-├── tests/
-├── docs/
-├── .gitignore
-├── package.json
-└── README.md
+                        my-app/
+                        ├── src/
+                        │ ├── components/
+                        │ ├── styles/
+                        │ └── utils/
+                        ├── public/
+                        ├── tests/
+                        ├── docs/
+                        ├── .gitignore
+                        ├── package.json
+                        └── README.md
                     </div>
                 </div>
 
@@ -752,7 +2090,7 @@ my-app/
                         <li>Prettier - Code formatting</li>
                         <li>Bracket Pair Colorizer - Visual matching</li>
                     </ul>
-                    
+
                     <p><strong>VS Code Keyboard Shortcuts:</strong></p>
                     <ol class="step-list">
                         <li>Command Palette: <code>Ctrl/Cmd + Shift + P</code></li>
@@ -776,7 +2114,7 @@ my-app/
                         <li><strong>Don't:</strong> Use generic commit messages like "update"</li>
                         <li><strong>Don't:</strong> Store sensitive data in public repos</li>
                     </ul>
-                    
+
                     <div class="tip">
                         When in doubt, create a branch. Branches are cheap, broken main branches are expensive.
                     </div>
@@ -796,7 +2134,7 @@ my-app/
                 // Remove active class from all tabs and contents
                 document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
                 document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                
+
                 // Add active class to clicked tab and corresponding content
                 button.classList.add('active');
                 document.getElementById(button.getAttribute('data-tab')).classList.add('active');
@@ -816,5 +2154,604 @@ my-app/
                 copyBtn.innerText = 'Copied!';
                 setTimeout(() => copyBtn.innerText = 'Copy', 1000);
             });
+        });
+
+        // --- Theme Toggle Functionality ---
+        function toggleTheme() {
+            // When inside a modal, the main guide's container acts as the themed element
+            const themedElement = document.querySelector('.main-guide-modal-content .container');
+            if (!themedElement) return; // Should not happen if structure is correct
+
+            const currentTheme = themedElement.getAttribute('data-theme');
+
+            if (currentTheme === 'light') {
+                themedElement.removeAttribute('data-theme'); // Revert to default (dark)
+            } else {
+                themedElement.setAttribute('data-theme', 'light'); // Apply light theme
+            }
+        }
+
+        // --- Main Guide Modal Functionality ---
+        function openMainGuideModal() {
+            document.getElementById('mainGuideModal').classList.add('active');
+            // Hide the parent page scrollbar when modal is open
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMainGuideModal() {
+            document.getElementById('mainGuideModal').classList.remove('active');
+            // Restore parent page scrollbar
+            document.body.style.overflow = '';
+        }
+
+        // --- Shortlist Modal Functionality (Internal) ---
+        function openModal() {
+            document.getElementById('shortlistModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('shortlistModal').classList.remove('active');
+        }
+
+        // --- Step-by-Step Modal Functionality (Internal) ---
+        // Global object to store step content for dynamic loading
+        const stepData = {
+            'setup-init-folder': {
+                title: 'Step 1: Create Project Folder & Navigate',
+                windows: `
+            <p>This creates your main project container folder and navigates into it in Windows Command Prompt or PowerShell:</p>
+            <div class="command-block">
+                <label for="win-cmd-1">Command:</label>
+                <input type="text" id="win-cmd-1" class="command-input" value="mkdir my-awesome-project" readonly>
+                <button class="copy-button" onclick="copyToClipboard('win-cmd-1')">Copy</button>
+            </div>
+            <div class="command-block">
+                <label for="win-cmd-2">Command:</label>
+                <input type="text" id="win-cmd-2" class="command-input" value="cd my-awesome-project" readonly>
+                <button class="copy-button" onclick="copyToClipboard('win-cmd-2')">Copy</button>
+            </div>
+            <div class="use-case">
+                <h4>Purpose:</h4>
+                <p>Establishes the root directory for your new VS Code project, ensuring all subsequent Git commands are executed within the correct scope.</p>
+            </div>
+        `,
+                bash: `
+            <p>This creates your main project container folder and navigates into it in Git Bash, WSL, or other Unix-like terminals:</p>
+            <div class="command-block">
+                <label for="bash-cmd-1">Command:</label>
+                <input type="text" id="bash-cmd-1" class="command-input" value="mkdir my-awesome-project" readonly>
+                <button class="copy-button" onclick="copyToClipboard('bash-cmd-1')">Copy</button>
+            </div>
+            <div class="command-block">
+                <label for="bash-cmd-2">Command:</label>
+                <input type="text" id="bash-cmd-2" class="command-input" value="cd my-awesome-project" readonly>
+                <button class="copy-button" onclick="copyToClipboard('bash-cmd-2')">Copy</button>
+            </div>
+            <div class="use-case">
+                <h4>Purpose:</h4>
+                <p>Establishes the root directory for your new VS Code project, ensuring all subsequent Git commands are executed within the correct scope.</p>
+            </div>
+        `
+            },
+            'setup-readme': {
+                title: 'Step 2: Create README.md File',
+                windows: `
+            <p>Create a <code>README.md</code> file for your project documentation in Windows PowerShell:</p>
+            <div class="command-block">
+                <label for="win-readme-cmd">Command:</label>
+                <input type="text" id="win-readme-cmd" class="command-input" value="New-Item README.md -ItemType File" readonly>
+                <button class="copy-button" onclick="copyToClipboard('win-readme-cmd')">Copy</button>
+            </div>
+            <div class="use-case">
+                <h4>Purpose:</h4>
+                <p><code>README.md</code> is crucial for explaining your project, its purpose, setup instructions, and usage. It's the first thing people (including your future self) look at when encountering your repository.</p>
+            </div>
+        `,
+                bash: `
+            <p>Create a <code>README.md</code> file for your project documentation in Bash/Mac/Linux:</p>
+            <div class="command-block">
+                <label for="bash-readme-cmd">Command:</label>
+                <input type="text" id="bash-readme-cmd" class="command-input" value="touch README.md" readonly>
+                <button class="copy-button" onclick="copyToClipboard('bash-readme-cmd')">Copy</button>
+            </div>
+            <div class="use-case">
+                <h4>Purpose:</h4>
+                <p><code>README.md</code> is crucial for explaining your project, its purpose, setup instructions, and usage. It's the first thing people (including your future self) look at when encountering your repository.</p>
+            </div>
+        `
+            },
+            'setup-git-init': {
+                title: 'Step 3: Initialize Git Repository',
+                windows: `
+            <p>This command turns your current folder into a Git repository for version control. This command is the same for both Windows and Bash:</p>
+            <div class="command-block">
+                <label for="git-init-cmd">Command:</label>
+                <input type="text" id="git-init-cmd" class="command-input" value="git init" readonly>
+                <button class="copy-button" onclick="copyToClipboard('git-init-cmd')">Copy</button>
+            </div>
+            <div class="use-case">
+                <h4>What happens:</h4>
+                <p>A hidden <code>.git</code> directory is created in your project's root folder. This directory contains all the necessary metadata and object database for Git to track changes, manage history, and facilitate collaboration.</p>
+                <h4>Verify Initialization:</h4>
+                <div class="command-block">
+                    <label for="git-status-verify">Command:</label>
+                    <input type="text" id="git-status-verify" class="command-input" value="git status" readonly>
+                    <button class="copy-button" onclick="copyToClipboard('git-status-verify')">Copy</button>
+                </div>
+                <p style="margin-top: var(--spacing-xs); opacity: 0.8;">After <code>git init</code>, <code>git status</code> should show your <code>README.md</code> (and any other existing project files) as "Untracked files."</p>
+            </div>
+        `,
+                bash: `
+            <p>This command turns your current folder into a Git repository for version control. This command is the same for both Windows and Bash:</p>
+            <div class="command-block">
+                <label for="git-init-cmd-bash">Command:</label>
+                <input type="text" id="git-init-cmd-bash" class="command-input" value="git init" readonly>
+                <button class="copy-button" onclick="copyToClipboard('git-init-cmd-bash')">Copy</button>
+            </div>
+            <div class="use-case">
+                <h4>What happens:</h4>
+                <p>A hidden <code>.git</code> directory is created in your project's root folder. This directory contains all the necessary metadata and object database for Git to track changes, manage history, and facilitate collaboration.</p>
+                <h4>Verify Initialization:</h4>
+                <div class="command-block">
+                    <label for="git-status-verify-bash">Command:</label>
+                    <input type="text" id="git-status-verify-bash" class="command-input" value="git status" readonly>
+                    <button class="copy-button" onclick="copyToClipboard('git-status-verify-bash')">Copy</button>
+                </div>
+                <p style="margin-top: var(--spacing-xs); opacity: 0.8;">After <code>git init</code>, <code>git status</code> should show your <code>README.md</code> (and any other existing project files) as "Untracked files."</p>
+            </div>
+        `
+            },
+            'setup-connect-remote': {
+                title: 'Step 4: Connect to Remote GitHub Repository',
+                windows: `
+            <div class="use-case">
+                <h4>First, create your repository on GitHub.com:</h4>
+                <p>1. Go to <a href="https://github.com" target="_blank" style="color: var(--accent-color);">github.com</a> and click the "New" button (usually green, top-right).
+                <p>2. Give it the same name as your local project (e.g., <code>my-awesome-project</code>) for consistency.</p>
+                <p>3. <strong>Important:</strong> Do NOT check the box to initialize with a README, .gitignore, or license. You already have a local <code>README.md</code> and will push your existing project files.</p>
+                <p>4. Click "Create repository". On the next page, copy the HTTPS URL provided for your new repository (it will look like <code>https://github.com/YOUR_USERNAME/my-awesome-project.git</code>).</p>
+            </div>
+            <p>Then connect your local repository to the remote one using the copied URL:</p>
+            <div class="command-block">
+                <label for="git-remote-cmd">Command:</label>
+                <input type="text" id="git-remote-cmd" class="command-input" value="git remote add origin https://github.com/YOUR_USERNAME/my-awesome-project.git" readonly>
+                <button class="copy-button" onclick="copyToClipboard('git-remote-cmd')">Copy</button>
+            </div>
+            <div class="use-case">
+                <h4>Replace <code>YOUR_USERNAME</code> with your actual GitHub username.</h4>
+                <p>This command tells your local Git repository where its remote counterpart ("origin" is the conventional name for the primary remote) is located on GitHub.</p>
+                <p><strong>Verification:</strong> To confirm the remote was added, you can run: <code>git remote -v</code></p>
+            </div>
+        `,
+                bash: `
+            <div class="use-case">
+                <h4>First, create your repository on GitHub.com:</h4>
+                <p>1. Go to <a href="https://github.com" target="_blank" style="color: var(--accent-color);">github.com</a> and click the "New" button (usually green, top-right).
+                <p>2. Give it the same name as your local project (e.g., <code>my-awesome-project</code>) for consistency.</p>
+                <p>3. <strong>Important:</strong> Do NOT check the box to initialize with a README, .gitignore, or license. You already have a local <code>README.md</code> and will push your existing project files.</p>
+                <p>4. Click "Create repository". On the next page, copy the HTTPS URL provided for your new repository (it will look like <code>https://github.com/YOUR_USERNAME/my-awesome-project.git</code>).</p>
+            </div>
+            <p>Then connect your local repository to the remote one using the copied URL:</p>
+            <div class="command-block">
+                <label for="git-remote-cmd-bash">Command:</label>
+                <input type="text" id="git-remote-cmd-bash" class="command-input" value="git remote add origin https://github.com/YOUR_USERNAME/my-awesome-project.git" readonly>
+                <button class="copy-button" onclick="copyToClipboard('git-remote-cmd-bash')">Copy</button>
+            </div>
+            <div class="use-case">
+                <h4>Replace <code>YOUR_USERNAME</code> with your actual GitHub username.</h4>
+                <p>This command tells your local Git repository where its remote counterpart ("origin" is the conventional name for the primary remote) is located on GitHub.</p>
+                <p><strong>Verification:</strong> To confirm the remote was added, you can run: <code>git remote -v</code></p>
+            </div>
+        `
+            },
+            'add-project-stage': {
+                title: 'Step 1: Stage Project Files',
+                windows: `
+            <p>Add all changes (new, modified, deleted files) in your current directory and its subdirectories to the Git staging area:</p>
+            <div class="command-block">
+                <label for="git-add-cmd">Command:</label>
+                <input type="text" id="git-add-cmd" class="command-input" value="git add ." readonly>
+                <button class="copy-button" onclick="copyToClipboard('git-add-cmd')">Copy</button>
+            </div>
+            <div class="use-case">
+                <h4>Purpose:</h4>
+                <p>The <code>.</code> (dot) signifies "all changes in the current directory and subdirectories." This command prepares all your existing project files to be included in the next commit, signaling to Git that you want to snapshot these changes.</p>
+                <p><strong>Alternative:</strong> If you only want to stage specific files, you can use: <br><code>git add YourFileName.txt</code> <br>or to stage a specific folder: <br><code>git add YourFolder/</code></p>
+            </div>
+        `,
+                bash: `
+            <p>Add all changes (new, modified, deleted files) in your current directory and its subdirectories to the Git staging area:</p>
+            <div class="command-block">
+                <label for="git-add-cmd-bash">Command:</label>
+                <input type="text" id="git-add-cmd-bash" class="command-input" value="git add ." readonly>
+                <button class="copy-button" onclick="copyToClipboard('git-add-cmd-bash')">Copy</button>
+            </div>
+            <div class="use-case">
+                <h4>Purpose:</h4>
+                <p>The <code>.</code> (dot) signifies "all changes in the current directory and subdirectories." This command prepares all your existing project files to be included in the next commit, signaling to Git that you want to snapshot these changes.</p>
+                <p><strong>Alternative:</strong> If you only want to stage specific files, you can use: <br><code>git add YourFileName.txt</code> <br>or to stage a specific folder: <br><code>git add YourFolder/</code></p>
+            </div>
+        `
+            },
+            'add-project-status': {
+                title: 'Step 2: Check Current Status',
+                windows: `
+            <p>Always a good idea to see what Git is tracking. This command provides a summary of your repository's state:</p>
+            <div class="command-block">
+                <label for="git-status-check">Command:</label>
+                <input type="text" id="git-status-check" class="command-input" value="git status" readonly>
+                <button class="copy-button" onclick="copyToClipboard('git-status-check')">Copy</button>
+            </div>
+            <div class="use-case">
+                <h4>What it shows:</h4>
+                <p>Lists files that are staged for the next commit ("Changes to be committed"), files that have been modified but not yet staged ("Changes not staged for commit"), and untracked files (new files not yet added to Git). This helps you confirm that all desired files are ready for commitment and identify any forgotten changes.</p>
+            </div>
+        `,
+                bash: `
+            <p>Always a good idea to see what Git is tracking. This command provides a summary of your repository's state:</p>
+            <div class="command-block">
+                <label for="git-status-check-bash">Command:</label>
+                <input type="text" id="git-status-check-bash" class="command-input" value="git status" readonly>
+                <button class="copy-button" onclick="copyToClipboard('git-status-check-bash')">Copy</button>
+            </div>
+            <div class="use-case">
+                <h4>What it shows:</h4>
+                <p>Lists files that are staged for the next commit ("Changes to be committed"), files that have been modified but not yet staged ("Changes not staged for commit"), and untracked files (new files not yet added to Git). This helps you confirm that all desired files are ready for commitment and identify any forgotten changes.</p>
+            </div>
+        `
+            },
+            'add-project-commit': {
+                title: 'Step 3: Commit Changes',
+                windows: `
+            <p>Save your staged changes to your local repository's history. The <code>-m</code> flag allows you to provide a commit message directly:</p>
+            <div class="command-block">
+                <label for="git-commit-cmd">Command:</label>
+                <input type="text" id="git-commit-cmd" class="command-input" value='git commit -m "Initial project commit"' readonly>
+                <button class="copy-button" onclick="copyToClipboard('git-commit-cmd')">Copy</button>
+            </div>
+            <div class="use-case">
+                <h4>Importance of a good message:</h4>
+                <p>Your commit message should be concise yet descriptive, explaining what changes were made in that particular snapshot. Clear messages are vital for understanding project history, debugging, and collaborating with others.</p>
+                <h4>Refactor Commit Scenarios (Conventional Commits):</h4>
+                <p>Using conventional commit messages helps standardize your commit history, making it more readable and allowing for automated tooling (e.g., generating changelogs).</p>
+                <ul>
+                    <li><code>feat: Implement user profile page</code> (<strong>feat:</strong> new feature)</li>
+                    <li><code>fix: Correct styling issue on homepage</code> (<strong>fix:</strong> bug fix)</li>
+                    <li><code>docs: Add API endpoint documentation</code> (<strong>docs:</strong> documentation changes)</li>
+                    <li><code>refactor: Optimize database queries</code> (<strong>refactor:</strong> code refactoring, no new features or bug fixes)</li>
+                    <li><code>chore: Update npm packages</code> (<strong>chore:</strong> routine tasks, e.g., dependency updates, build process changes)</li>
+                    <li><code>style: Format code with Prettier</code> (<strong>style:</strong> code style changes, no semantic changes)</li>
+                    <li><code>test: Add unit tests for login component</code> (<strong>test:</strong> adding or correcting tests)</li>
+                </ul>
+            </div>
+        `,
+                bash: `
+            <p>Save your staged changes to your local repository's history. The <code>-m</code> flag allows you to provide a commit message directly:</p>
+            <div class="command-block">
+                <label for="git-commit-cmd-bash">Command:</label>
+                <input type="text" id="git-commit-cmd-bash" class="command-input" value='git commit -m "Initial project commit"' readonly>
+                <button class="copy-button" onclick="copyToClipboard('git-commit-cmd-bash')">Copy</button>
+            </div>
+            <div class="use-case">
+                <h4>Importance of a good message:</h4>
+                <p>Your commit message should be concise yet descriptive, explaining what changes were made in that particular snapshot. Clear messages are vital for understanding project history, debugging, and collaborating with others.</p>
+                <h4>Refactor Commit Scenarios (Conventional Commits):</h4>
+                <p>Using conventional commit messages helps standardize your commit history, making it more readable and allowing for automated tooling (e.g., generating changelogs).</p>
+                <ul>
+                    <li><code>feat: Implement user profile page</code> (<strong>feat:</strong> new feature)</li>
+                    <li><code>fix: Correct styling issue on homepage</code> (<strong>fix:</strong> bug fix)</li>
+                    <li><code>docs: Add API endpoint documentation</code> (<strong>docs:</strong> documentation changes)</li>
+                    <li><code>refactor: Optimize database queries</code> (<strong>refactor:</strong> code refactoring, no new features or bug fixes)</li>
+                    <li><code>chore: Update npm packages</code> (<strong>chore:</strong> routine tasks, e.g., dependency updates, build process changes)</li>
+                    <li><code>style: Format code with Prettier</code> (<strong>style:</strong> code style changes, no semantic changes)</li>
+                    <li><code>test: Add unit tests for login component</code> (<strong>test:</strong> adding or correcting tests)</li>
+                </ul>
+            </div>
+        `
+            },
+            'add-project-push': {
+                title: 'Step 4: Push Changes Online',
+                windows: `
+            <p>Upload your local commits to your linked GitHub repository. This command makes your local history visible on the remote:</p>
+            <div class="command-block">
+                <label for="git-push-initial">First Push (use only once per new branch):</label>
+                <input type="text" id="git-push-initial" class="command-input" value="git push -u origin main" readonly>
+                <button class="copy-button" onclick="copyToClipboard('git-push-initial')">Copy</button>
+            </div>
+            <div class="use-case">
+                <h4>Explanation of <code>-u origin main</code>:</h4>
+                <p>The <code>-u</code> (or <code>--set-upstream</code>) flag is used during the *first* push of a new branch. It tells Git to set <code>origin</code> as the default remote and <code>main</code> (or your branch name) as the default upstream branch for your current local branch. This simplifies future pushes.</p>
+                <p>After running this once for your <code>main</code> branch, subsequent pushes from <code>main</code> can be shorter.</p>
+            </div>
+            <div class="command-block">
+                <label for="git-push-subsequent">Subsequent Pushes:</label>
+                <input type="text" id="git-push-subsequent" class="command-input" value="git push" readonly>
+                <button class="copy-button" onclick="copyToClipboard('git-push-subsequent')">Copy</button>
+            </div>
+            <div class="use-case">
+                <h4>Purpose of <code>git push</code>:</h4>
+                <p>Sends your new local commits (those that are not yet on the remote) to the GitHub repository. It's how you synchronize your local work with the online version, making it accessible to others and serving as a backup.</p>
+            </div>
+        `,
+                bash: `
+            <p>Upload your local commits to your linked GitHub repository. This command makes your local history visible on the remote:</p>
+            <div class="command-block">
+                <label for="git-push-initial-bash">Command:</label>
+                <input type="text" id="git-push-initial-bash" class="command-input" value="git push -u origin main" readonly>
+                <button class="copy-button" onclick="copyToClipboard('git-push-initial-bash')">Copy</button>
+            </div>
+            <div class="use-case">
+                <h4>Explanation of <code>-u origin main</code>:</h4>
+                <p>The <code>-u</code> (or <code>--set-upstream</code>) flag is used during the *first* push of a new branch. It tells Git to set <code>origin</code> as the default remote and <code>main</code> (or your branch name) as the default upstream branch for your current local branch. This simplifies future pushes.</p>
+                <p>After running this once for your <code>main</code> branch, subsequent pushes from <code>main</code> can be shorter.</p>
+            </div>
+            <div class="command-block">
+                <label for="git-push-subsequent-bash">Subsequent Pushes:</label>
+                <input type="text" id="git-push-subsequent-bash" class="command-input" value="git push" readonly>
+                <button class="copy-button" onclick="copyToClipboard('git-push-subsequent-bash')">Copy</button>
+            </div>
+            <div class="use-case">
+                <h4>Purpose of <code>git push</code>:</h4>
+                <p>Sends your new local commits (those that are not yet on the remote) to the GitHub repository. It's how you synchronize your local work with the online version, making it accessible to others and serving as a backup.</p>
+            </div>
+        `
+            }
+        };
+
+        function openStepModal(stepId) {
+            const stepTitleElement = document.getElementById('stepTitle');
+            const stepContentElement = document.getElementById('stepContent');
+            const stepModal = document.getElementById('stepModal');
+
+            // Find the currently active system tab (Windows or Bash)
+            const activeTab = document.querySelector('.command-tab.active');
+            const currentSystem = activeTab ? activeTab.dataset.system : 'windows'; // Default to Windows
+
+            if (stepData[stepId]) {
+                stepTitleElement.textContent = stepData[stepId].title;
+                // Set the content based on the currently active system
+                stepContentElement.innerHTML = stepData[stepId][currentSystem];
+                stepModal.classList.add('active');
+            }
+        }
+
+        function closeStepModal() {
+            document.getElementById('stepModal').classList.remove('active');
+        }
+
+        // Function to switch between Windows and Bash commands in the step modal
+        function switchCommandSystem(systemType) {
+            const tabs = document.querySelectorAll('.command-tab');
+            tabs.forEach(tab => {
+                // Update active class for tabs
+                if (tab.dataset.system === systemType) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+
+            // If the step modal is active, update its content based on the new systemType
+            const stepModal = document.getElementById('stepModal');
+            if (stepModal.classList.contains('active')) {
+                const stepTitle = document.getElementById('stepTitle').textContent;
+                // Find the step ID based on its title
+                const currentStepId = Object.keys(stepData).find(key => stepData[key].title === stepTitle);
+
+                if (currentStepId && stepData[currentStepId][systemType]) {
+                    const stepContentElement = document.getElementById('stepContent');
+                    stepContentElement.innerHTML = stepData[currentStepId][systemType];
+                }
+            }
+        }
+
+        // --- NEW: AI Feature Modal Functions ---
+        function openAIGeneratorModal() {
+            document.getElementById('commitMessageGeneratorModal').classList.add('active');
+            // Clear previous content
+            document.getElementById('commitChangesInput').value = '';
+            document.getElementById('commitMessageOutput').textContent = 'Your generated commit message will appear here.';
+        }
+
+        function closeAIGeneratorModal() {
+            document.getElementById('commitMessageGeneratorModal').classList.remove('active');
+        }
+
+        function openAIExplainerModal() {
+            document.getElementById('commandExplainerModal').classList.add('active');
+            // Clear previous content
+            document.getElementById('gitCommandInput').value = '';
+            document.getElementById('gitCommandExplanationOutput').textContent = 'The explanation will appear here.';
+        }
+
+        function closeAIExplainerModal() {
+            document.getElementById('commandExplainerModal').classList.remove('active');
+        }
+
+        // --- NEW: Gemini API Integration Functions ---
+        async function generateCommitMessage() {
+            const changesInput = document.getElementById('commitChangesInput').value.trim();
+            const outputArea = document.getElementById('commitMessageOutput');
+            const loadingIndicator = document.getElementById('loadingIndicatorCommit');
+
+            if (!changesInput) {
+                outputArea.textContent = "Please describe your changes to generate a commit message.";
+                return;
+            }
+
+            loadingIndicator.style.display = 'flex';
+            outputArea.textContent = ''; // Clear previous output
+
+            let chatHistory = [];
+            chatHistory.push({
+                role: "user",
+                parts: [{
+                    text: `Generate a concise and conventional Git commit message (e.g., 'feat: Add user profile page') based on these changes: ${changesInput}`
+                }]
+            });
+
+            const payload = { contents: chatHistory };
+            const apiKey = ""; // If you want to use models other than gemini-2.0-flash or imagen-3.0-generate-002, provide an API key here. Otherwise, leave this as-is.
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const text = result.candidates[0].content.parts[0].text;
+                    outputArea.textContent = text;
+                } else {
+                    outputArea.textContent = "Failed to generate message. Please try again or refine your input.";
+                    console.error("Unexpected API response structure:", result);
+                }
+            } catch (error) {
+                outputArea.textContent = "Error generating message. Please check your network connection or try again later.";
+                console.error("Error calling Gemini API for commit message:", error);
+            } finally {
+                loadingIndicator.style.display = 'none';
+            }
+        }
+
+        async function explainGitCommand() {
+            const commandInput = document.getElementById('gitCommandInput').value.trim();
+            const outputArea = document.getElementById('gitCommandExplanationOutput');
+            const loadingIndicator = document.getElementById('loadingIndicatorExplain');
+
+            if (!commandInput) {
+                outputArea.textContent = "Please enter a Git command to explain.";
+                return;
+            }
+
+            loadingIndicator.style.display = 'flex';
+            outputArea.textContent = ''; // Clear previous output
+
+            let chatHistory = [];
+            chatHistory.push({
+                role: "user",
+                parts: [{
+                    text: `Explain the Git command '${commandInput}' in simple, clear terms. Include its primary purpose, common use cases, and any important caveats or potential pitfalls. Provide output as a markdown formatted string.`
+                }]
+            });
+
+            const payload = { contents: chatHistory };
+            const apiKey = ""; // If you want to use models other than gemini-2.0-flash or imagen-3.0-generate-002, provide an API key here. Otherwise, leave this as-is.
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const text = result.candidates[0].content.parts[0].text;
+                    outputArea.innerHTML = marked.parse(text); // Use marked.js for Markdown parsing
+                } else {
+                    outputArea.textContent = "Failed to explain command. Please try again or check the command syntax.";
+                    console.error("Unexpected API response structure:", result);
+                }
+            } catch (error) {
+                outputArea.textContent = "Error explaining command. Please check your network connection or try again later.";
+                console.error("Error calling Gemini API for command explanation:", error);
+            } finally {
+                loadingIndicator.style.display = 'none';
+            }
+        }
+
+        // --- Marked.js for Markdown parsing (for AI explanations) ---
+        // Load marked.js library dynamically
+        const script = document.createElement('script');
+        script.src = 'https://cdn.jsdelivr.net/npm/marked/marked.min.js';
+        script.onload = () => {
+            // marked.js is now loaded and available as 'marked'
+            console.log('Marked.js loaded.');
+        };
+        document.head.appendChild(script);
+
+        // Close modals when clicking outside
+        window.onclick = function (event) {
+            const mainGuideModal = document.getElementById('mainGuideModal');
+            const shortlistModal = document.getElementById('shortlistModal');
+            const stepModal = document.getElementById('stepModal');
+            const commitMessageGeneratorModal = document.getElementById('commitMessageGeneratorModal');
+            const commandExplainerModal = document.getElementById('commandExplainerModal');
+
+            // Close the main guide modal if clicked outside its content
+            if (event.target === mainGuideModal) {
+                closeMainGuideModal();
+            }
+            // Close internal modals if clicked outside their content (and main modal is active)
+            if (event.target === shortlistModal) {
+                closeModal();
+            }
+            if (event.target === stepModal) {
+                closeStepModal();
+            }
+            if (event.target === commitMessageGeneratorModal) {
+                closeAIGeneratorModal();
+            }
+            if (event.target === commandExplainerModal) {
+                closeAIExplainerModal();
+            }
+        }
+
+        // Copy to clipboard function (using document.execCommand for iFrame compatibility)
+        function copyToClipboard(elementId) {
+            const inputElement = document.getElementById(elementId);
+
+            // Create a temporary textarea element to hold the text to copy
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = inputElement.value;
+            document.body.appendChild(tempTextArea); // Append to body so it's selectable
+
+            // Select the text in the temporary textarea
+            tempTextArea.select();
+            tempTextArea.setSelectionRange(0, 99999); // For mobile devices
+
+            try {
+                // Execute the copy command
+                document.execCommand('copy');
+                // Optional: Provide visual feedback to the user
+                const originalText = inputElement.value;
+                inputElement.value = "Copied!";
+                setTimeout(() => {
+                    inputElement.value = originalText;
+                }, 1000); // Revert text after 1 second
+            } catch (err) {
+                console.error('Failed to copy text: ', err);
+                // Fallback for browsers where execCommand is not supported or fails
+                // Using a custom message box is preferred over alert()
+                const messageBox = document.createElement('div');
+                messageBox.textContent = 'Could not copy text automatically. Please manually select and copy.';
+                messageBox.style.cssText = `
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background-color: #f44336; color: white; padding: 15px; border-radius: 8px;
+            z-index: 9999; font-family: sans-serif;
+        `;
+                document.body.appendChild(messageBox);
+                setTimeout(() => {
+                    document.body.removeChild(messageBox);
+                }, 3000);
+            } finally {
+                // Remove the temporary textarea
+                document.body.removeChild(tempTextArea);
+            }
+        }
+
+        // Initialize with default system selection (Windows) when the DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            // Ensure the Windows tab is active on load for the step modal
+            switchCommandSystem('windows'); // This will set the default tab state correctly
         });
     </script>

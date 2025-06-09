@@ -51,8 +51,7 @@ Here's a simple number list summarizing the essential Git commands for managing 
 
         manual copy look: 
 
-
-
+    
 Got it! A concise list of the core Git commands for notes.
 
 Here's a simple number list summarizing the essential Git commands for managing your changes:
@@ -152,6 +151,7 @@ Here's a simple number list summarizing the essential Git commands for managing 
         ```powershell
         git push
         ```
+        dont forget to add juicey extras: cntrl c and pwd command and uses cases as well and refactor commit scenorios  give scenarios  
 
         1.  git status
         2.  git add .
