@@ -1279,10 +1279,21 @@
             background: var(--frost-glow);
         }
 
+        .code-line {
+            display: flex;
+            justify-content: space-between;
+            align-content: flex-start;
+            align-items:flex-start;
+            gap: var(--spacing-sm);
+            margin-bottom: 20px;
+            padding-bottom: 30px;
+        }
+
         .code-block {
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
+            align-items: center;
+            justify-content: center;
             gap: var(--spacing-sm);
             width: 100%;
             background: var(--input-bg);
@@ -1290,15 +1301,19 @@
             border-radius: 10px;
             padding: var(--spacing-md);
             margin: var(--spacing-sm) 0;
+            margin-top: 40px;
             font-family: 'Courier New', monospace;
             font-size: var(--font-sm);
-            position: relative;
             overflow-x: auto;
         }
 
         .code-block::before {
             content: attr(data-lang);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             position: absolute;
+            margin-top: 40px;
             top: -8px;
             right: var(--spacing-sm);
             background: var(--accent-color);
@@ -1358,13 +1373,15 @@
         }
 
         .copy-btn {
-            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             top: var(--spacing-xs);
             right: var(--spacing-xs);
             background: var(--button-bg);
             border: 1px solid var(--border-color);
             color: var(--accent-color);
-            padding: 4px 8px;
+            padding: 8px 8px;
             border-radius: 4px;
             cursor: pointer;
             font-size: 10px;
