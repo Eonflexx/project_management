@@ -87,8 +87,7 @@ You can modify these variables to match your project's aesthetic:
     --button-hover-bg: rgba(203, 255, 250, 0.2); /* Button hover state */
     --border-color: rgba(203, 255, 250, 0.3); /* Borders and subtle lines */
     --digital-font: 'Orbitron', sans-serif; /* Specific font for digital elements */
-}
-```
+
 
     /* Glass & Glow Effects */
     --frost-glow: rgba(203, 255, 250, 0.05); /* Subtle inner glow */
@@ -119,7 +118,10 @@ You can modify these variables to match your project's aesthetic:
     --light-border-color: rgba(0, 123, 255, 0.3);
     --light-frost-glow: rgba(0, 123, 255, 0.05);
     --light-shadow-glow: 0 0 15px rgba(0, 123, 255, 0.3);
-}
+
+  }
+```
+
 Contributions are welcome! If you have suggestions for new features, improvements, or bug fixes, please feel free to contribute. This project is open-source and available under the MIT License.
 
 

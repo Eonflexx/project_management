@@ -5,637 +5,402 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project Organization & Git Cheat Sheet</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap"
-        rel="stylesheet">
+    <!-- Google Fonts: Inter for general text, Orbitron for digital/accent text -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <div class="container">
+    <!-- Main Application Container (Parent page content) -->
+    <div class="repo-man-container">
         <div class="hero">
             <h1>PROJECT ORGANIZATION</h1>
             <p>Master the art of clean code organization and Git workflows across all platforms</p>
         </div>
+        <button class="launch-button" onclick="openMainGuideModal()">Open Git Guide</button>
+    </div>
 
-        <div class="repo-man-container">
-            <!-- This is the "parent" page content -->
-            <button class="launch-button" onclick="openMainGuideModal()">Open Git Guide</button>
+    <!-- MAIN GUIDE MODAL - This wraps the core application content -->
+    <div id="mainGuideModal" class="main-guide-modal-overlay">
+        <div class="main-guide-modal-content">
+            <span class="main-guide-close-button" onclick="closeMainGuideModal()">&times;</span>
 
-            <!-- MAIN GUIDE MODAL - This wraps all your previous content -->
-            <div id="mainGuideModal" class="main-guide-modal-overlay">
-                <div class="main-guide-modal-content">
-                    <span class="main-guide-close-button" onclick="closeMainGuideModal()">&times;</span>
+            <!-- Content inside the main guide modal -->
+            <div class="container" id="mainFlowchartContent">
+                <h1>PROJECT MANAGEMENT: VS CODE & GITHUB</h1>
 
-                    <!-- Theme Toggle Button - Remains fixed even within the modal -->
-                    <button class="theme-toggle" onclick="toggleTheme()">💡</button>
+                <!-- Tabs Navigation for Main Guide Content -->
+                <div class="tabs">
+                    <button class="tab-button active" data-tab="workflow-content">🚀 Workflow</button>
+                    <button class="tab-button" data-tab="commands-content">⚡ Commands</button>
+                    <button class="tab-button" data-tab="automation-content">🤖 Automation</button>
+                    <button class="tab-button" data-tab="pro-tips-content">💎 Pro Tips</button>
+                </div>
 
-                    <!-- All the previous guide content now lives inside this container -->
-                    <div class="container">
-                        <!-- Button to open the Shortlist Modal -->
-                        <div class="shortlist-button" onclick="openModal()">SHORTLIST</div>
-                        <h1>PROJECT MANAGEMENT: VS CODE & GITHUB</h1>
-
-                        <!-- Initial Setup Section -->
-                        <div class="section-title">Initial Setup</div>
-                        <div class="flow-grid">
-                            <!-- Flow Card for Step 1: Create Project Folder -->
-                            <div class="flow-card" onclick="openStepModal('setup-init-folder')">
-                                <span class="card-number">1</span>
-                                <div class="card-content">
-                                    <h3>Create Project Folder & Navigate</h3>
-                                    <p>Start by creating a root directory for your project and entering it in the VS
-                                        Code terminal.</p>
-                                    <code>
-                                mkdir my-awesome-project
-                                cd my-awesome-project
-                            </code>
-                                </div>
-                            </div>
-                            <!-- Flow Card for Step 2: Create README.md -->
-                            <div class="flow-card" onclick="openStepModal('setup-readme')">
-                                <span class="card-number">2</span>
-                                <div class="card-content">
-                                    <h3>Create README.md File</h3>
-                                    <p>Essential for project documentation, explaining what your project does.</p>
-                                    <code>New-Item README.md -ItemType File</code>
-                                    <p>(Windows PowerShell example)</p>
-                                </div>
-                            </div>
-                            <!-- Flow Card for Step 3: Initialize Git Repo -->
-                            <div class="flow-card" onclick="openStepModal('setup-git-init')">
-                                <span class="card-number">3</span>
-                                <div class="card-content">
-                                    <h3>Initialize Git Repo</h3>
-                                    <p>Turns your local project folder into a Git repository for version control.</p>
-                                    <code>git init</code>
-                                </div>
-                            </div>
-                            <!-- Flow Card for Step 4: Connect to Remote GitHub -->
-                            <div class="flow-card" onclick="openStepModal('setup-connect-remote')">
-                                <span class="card-number">4</span>
-                                <div class="card-content">
-                                    <h3>Connect to Remote GitHub</h3>
-                                    <p>Link your local repository to a new or existing repository on GitHub.</p>
-                                    <code>git remote add origin &lt;repo_url&gt;</code>
-                                </div>
+                <!-- Workflow Tab Content -->
+                <div class="tab-content active" id="workflow-content">
+                    <div class="section-title">Initial Setup</div>
+                    <div class="flow-grid">
+                        <!-- Flow Card for Step 1: Create Project Folder -->
+                        <div class="flow-card" onclick="openStepModal('setup-init-folder')">
+                            <span class="card-number">1</span>
+                            <div class="card-content">
+                                <h3>Create Project Folder & Navigate</h3>
+                                <p>Start by creating a root directory for your project and entering it in the VS Code terminal.</p>
+                                <code>mkdir my-awesome-project; cd my-awesome-project</code>
                             </div>
                         </div>
-
-                        <!-- Adding Existing VS Code Project Section -->
-                        <div class="section-title">Adding Existing VS Code Project to Repo</div>
-                        <div class="flow-grid">
-                            <!-- Flow Card for Step 1: Stage Project Files -->
-                            <div class="flow-card" onclick="openStepModal('add-project-stage')">
-                                <span class="card-number">1</span>
-                                <div class="card-content">
-                                    <h3>Stage Project Files</h3>
-                                    <p>Add all changed and new files in your current directory to the staging area.</p>
-                                    <code>git add .</code>
-                                </div>
-                            </div>
-                            <!-- Flow Card for Step 2: Check Status -->
-                            <div class="flow-card" onclick="openStepModal('add-project-status')">
-                                <span class="card-number">2</span>
-                                <div class="card-content">
-                                    <h3>Check Current Status</h3>
-                                    <p>Review the state of your working directory and staging area.</p>
-                                    <code>git status</code>
-                                </div>
-                            </div>
-                            <!-- Flow Card for Step 3: Commit Changes -->
-                            <div class="flow-card" onclick="openStepModal('add-project-commit')">
-                                <span class="card-number">3</span>
-                                <div class="card-content">
-                                    <h3>Commit Changes</h3>
-                                    <p>Save your staged changes to your local repository's history with a message.</p>
-                                    <code>git commit -m "Initial project commit"</code>
-                                </div>
-                            </div>
-                            <!-- Flow Card for Step 4: Push Changes -->
-                            <div class="flow-card" onclick="openStepModal('add-project-push')">
-                                <span class="card-number">4</span>
-                                <div class="card-content">
-                                    <h3>Push Changes Online</h3>
-                                    <p>Upload your local commits to your linked GitHub repository.</p>
-                                    <code>git push -u origin main</code>
-                                    <p>(First push example)</p>
-                                </div>
+                        <!-- Flow Card for Step 2: Create README.md -->
+                        <div class="flow-card" onclick="openStepModal('setup-readme')">
+                            <span class="card-number">2</span>
+                            <div class="card-content">
+                                <h3>Create README.md File</h3>
+                                <p>Essential for project documentation, explaining what your project does.</p>
+                                <code>New-Item README.md -ItemType File</code>
+                                <p>(Windows PowerShell example)</p>
                             </div>
                         </div>
-
-                        <!-- NEW: AI-Powered Git Tools Section -->
-                        <div class="section-title">AI-Powered Git Tools</div>
-                        <div class="flow-grid">
-                            <!-- Flow Card for Commit Message Generator -->
-                            <div class="flow-card" onclick="openAIGeneratorModal()">
-                                <span class="card-number">✨</span>
-                                <div class="card-content">
-                                    <h3>Generate Commit Message</h3>
-                                    <p>Let AI craft the perfect commit message based on your changes.</p>
-                                    <button class="ai-button">Generate Message ✨</button>
-                                </div>
+                        <!-- Flow Card for Step 3: Initialize Git Repo -->
+                        <div class="flow-card" onclick="openStepModal('setup-git-init')">
+                            <span class="card-number">3</span>
+                            <div class="card-content">
+                                <h3>Initialize Git Repo</h3>
+                                <p>Turns your local project folder into a Git repository for version control.</p>
+                                <code>git init</code>
                             </div>
-                            <!-- Flow Card for Git Command Explainer -->
-                            <div class="flow-card" onclick="openAIExplainerModal()">
-                                <span class="card-number">✨</span>
-                                <div class="card-content">
-                                    <h3>Explain Git Command</h3>
-                                    <p>Get clear, concise explanations for any Git command from AI.</p>
-                                    <button class="ai-button">Explain Command ✨</button>
-                                </div>
+                        </div>
+                        <!-- Flow Card for Step 4: Connect to Remote GitHub -->
+                        <div class="flow-card" onclick="openStepModal('setup-connect-remote')">
+                            <span class="card-number">4</span>
+                            <div class="card-content">
+                                <h3>Connect to Remote GitHub</h3>
+                                <p>Link your local repository to a new or existing repository on GitHub.</p>
+                                <code>git remote add origin &lt;repo_url&gt;</code>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Shortlist Modal (Internal Modal) -->
-                    <div id="shortlistModal" class="modal-overlay">
-                        <div class="modal-content">
-                            <span class="close-button" onclick="closeModal()">&times;</span>
-                            <h2 class="modal-title">Your Essential Git Commands Shortlist</h2>
-
-                            <div class="shortlist-item">
-                                <p>1. Check current status:</p>
-                                <code>git status</code>
-                                <p><strong>Use Case:</strong> Before adding or committing, this command shows you which
-                                    files have been modified, are staged for commit, or are untracked. Essential for
-                                    understanding your repository's state.</p>
-                            </div>
-
-                            <div class="shortlist-item">
-                                <p>2. Stage all changes:</p>
+                    <div class="section-title">Adding Existing VS Code Project to Repo</div>
+                    <div class="flow-grid">
+                        <!-- Flow Card for Step 1: Stage Project Files -->
+                        <div class="flow-card" onclick="openStepModal('add-project-stage')">
+                            <span class="card-number">1</span>
+                            <div class="card-content">
+                                <h3>Stage Project Files</h3>
+                                <p>Add all changed and new files in your current directory to the staging area.</p>
                                 <code>git add .</code>
-                                <p><strong>Use Case:</strong> Adds all new, modified, and deleted files in your current
-                                    directory and its subdirectories to the staging area, preparing them for the next
-                                    commit.</p>
                             </div>
-
-                            <div class="shortlist-item">
-                                <p>3. Create a new file (Windows PowerShell):</p>
-                                <code>New-Item YourFileName.txt -ItemType File</code>
-                                <p><strong>Use Case:</strong> Quickly create new files directly from your VS Code
-                                    terminal (if using PowerShell) for documentation, configuration, or new code files.
-                                </p>
+                        </div>
+                        <!-- Flow Card for Step 2: Check Status -->
+                        <div class="flow-card" onclick="openStepModal('add-project-status')">
+                            <span class="card-number">2</span>
+                            <div class="card-content">
+                                <h3>Check Current Status</h3>
+                                <p>Review the state of your working directory and staging area.</p>
+                                <code>git status</code>
                             </div>
-                            <div class="shortlist-item">
-                                <p>3. Create a new file (Bash/Mac/Linux):</p>
-                                <code>touch YourFileName.txt</code>
-                                <p><strong>Use Case:</strong> The equivalent of `New-Item` for Bash/Unix-like
-                                    environments, commonly used to create empty files.</p>
+                        </div>
+                        <!-- Flow Card for Step 3: Commit Changes -->
+                        <div class="flow-card" onclick="openStepModal('add-project-commit')">
+                            <span class="card-number">3</span>
+                            <div class="card-content">
+                                <h3>Commit Changes</h3>
+                                <p>Save your staged changes to your local repository's history with a message.</p>
+                                <code>git commit -m "Initial project commit"</code>
                             </div>
-
-                            <div class="shortlist-item">
-                                <p>4. Commit with a descriptive message:</p>
-                                <code>git commit -m "Your descriptive commit message here"</code>
-                                <p><strong>Use Case:</strong> Saves your staged changes to your local repository's
-                                    history. The message should clearly describe the changes made in that commit.</p>
-                                <h4>Refactor Commit Scenarios:</h4>
-                                <ul>
-                                    <li><code>feat: Add user authentication module</code> (New Feature)</li>
-                                    <li><code>fix: Resolve critical bug in login flow</code> (Bug Fix)</li>
-                                    <li><code>docs: Update README with setup instructions</code> (Documentation)</li>
-                                    <li><code>refactor: Improve naming conventions in user service</code> (Code
-                                        Refactoring)</li>
-                                    <li><code>chore: Update dependencies</code> (Maintenance/Chores)</li>
-                                </ul>
-                            </div>
-
-                            <div class="shortlist-item">
-                                <p>5. Initial push (only used initially for a new branch):</p>
+                        </div>
+                        <!-- Flow Card for Step 4: Push Changes -->
+                        <div class="flow-card" onclick="openStepModal('add-project-push')">
+                            <span class="card-number">4</span>
+                            <div class="card-content">
+                                <h3>Push Changes Online</h3>
+                                <p>Upload your local commits to your linked GitHub repository.</p>
                                 <code>git push -u origin main</code>
-                                <p><strong>Use Case:</strong> This command is typically used for the *first* push of a
-                                    new branch (like `main`) to a remote repository. The `-u` flag sets the upstream
-                                    branch, meaning `git push` (without arguments) will work for subsequent pushes.</p>
-                            </div>
-
-                            <div class="shortlist-item">
-                                <p>6. Subsequent pushes:</p>
-                                <code>git push</code>
-                                <p><strong>Use Case:</strong> After the initial push, this command is used to upload all
-                                    your new local commits to the remote repository. Simpler because the upstream is
-                                    already set.</p>
-                            </div>
-
-                            <div class="shortlist-item">
-                                <p>Juicy Extra 1: Interrupt a running command:</p>
-                                <code>Ctrl + C</code>
-                                <p><strong>Use Case:</strong> Crucial for stopping long-running processes, commands that
-                                    are stuck, or if you accidentally initiated a command you didn't intend to. Works in
-                                    most terminal environments (Windows, macOS, Linux).</p>
-                            </div>
-
-                            <div class="shortlist-item">
-                                <p>Juicy Extra 2: Print Working Directory:</p>
-                                <code>pwd</code> (Mac/Linux/Bash) <br>
-                                <code>Get-Location</code> or <code>cd</code> (Windows PowerShell, `cd` without arguments
-                                shows current directory)
-                                <p><strong>Use Case:</strong> Always know where you are! This command displays the full
-                                    path of your current directory in the terminal. Essential for navigation and
-                                    ensuring you're running commands in the correct location.</p>
+                                <p>(First push example)</p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Step-by-Step Modal (Internal Modal) -->
-                    <div id="stepModal" class="modal-overlay">
-                        <div class="modal-content">
-                            <span class="close-button" onclick="closeStepModal()">&times;</span>
-                            <h2 class="modal-title" id="stepTitle"></h2>
-
-                            <div class="command-tabs">
-                                <!-- Tabs for switching between Windows and Bash commands -->
-                                <button class="command-tab active" data-system="windows"
-                                    onclick="switchCommandSystem('windows')">Windows</button>
-                                <button class="command-tab" data-system="bash"
-                                    onclick="switchCommandSystem('bash')">Bash</button>
+                    <div class="section-title">AI-Powered Git Tools</div>
+                    <div class="flow-grid">
+                        <!-- Flow Card for Commit Message Generator -->
+                        <div class="flow-card" onclick="openAIGeneratorModal()">
+                            <span class="card-number">✨</span>
+                            <div class="card-content">
+                                <h3>Generate Commit Message</h3>
+                                <p>Let AI craft the perfect commit message based on your changes.</p>
+                                <button class="ai-button">Generate Message ✨</button>
                             </div>
-
-                            <div class="command-content-wrapper">
-                                <div id="stepContent" class="command-display active">
-                                    <!-- Dynamic content will be loaded here by JavaScript -->
-                                </div>
+                        </div>
+                        <!-- Flow Card for Git Command Explainer -->
+                        <div class="flow-card" onclick="openAIExplainerModal()">
+                            <span class="card-number">✨</span>
+                            <div class="card-content">
+                                <h3>Explain Git Command</h3>
+                                <p>Get clear, concise explanations for any Git command from AI.</p>
+                                <button class="ai-button">Explain Command ✨</button>
+                            </div>
+                        </div>
+                        <!-- NEW: GitHub Integration Card -->
+                        <div class="flow-card">
+                            <span class="card-number"><i class="fab fa-github"></i></span>
+                            <div class="card-content">
+                                <h3>GitHub Repository Viewer</h3>
+                                <p>View recent commits from any public GitHub repository directly here.</p>
+                                <button class="ai-button mt-4" onclick="openGitHubIntegrationModal()">View GitHub Activity</button>
                             </div>
                         </div>
                     </div>
 
-                    <!-- NEW: Commit Message Generator Modal (Internal AI Modal) -->
-                    <div id="commitMessageGeneratorModal" class="modal-overlay">
-                        <div class="modal-content">
-                            <span class="close-button" onclick="closeAIGeneratorModal()">&times;</span>
-                            <h2 class="modal-title">✨ AI Commit Message Generator</h2>
-                            <p>Describe the changes you've made in your code, and I'll suggest a concise Git commit
-                                message for you.</p>
-                            <textarea id="commitChangesInput" class="ai-input-area"
-                                placeholder="e.g., 'Added user login functionality and fixed a bug in the navigation bar.'"></textarea>
-                            <button class="ai-button" onclick="generateCommitMessage()">Generate Message ✨</button>
-                            <div id="loadingIndicatorCommit" class="loading-indicator" style="display: none;">
-                                <div class="loading-spinner"></div> Generating...
-                            </div>
-                            <div id="commitMessageOutput" class="ai-output-area">
-                                Your generated commit message will appear here.
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- NEW: Git Command Explainer Modal (Internal AI Modal) -->
-                    <div id="commandExplainerModal" class="modal-overlay">
-                        <div class="modal-content">
-                            <span class="close-button" onclick="closeAIExplainerModal()">&times;</span>
-                            <h2 class="modal-title">✨ AI Git Command Explainer</h2>
-                            <p>Enter any Git command (e.g., `git rebase -i`, `git cherry-pick`), and I'll explain it to
-                                you.</p>
-                            <input type="text" id="gitCommandInput" class="ai-input-area"
-                                placeholder="e.g., git merge --no-ff">
-                            <button class="ai-button" onclick="explainGitCommand()">Explain Command ✨</button>
-                            <div id="loadingIndicatorExplain" class="loading-indicator" style="display: none;">
-                                <div class="loading-spinner"></div> Explaining...
-                            </div>
-                            <div id="gitCommandExplanationOutput" class="ai-output-area">
-                                The explanation will appear here.
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-        </div>
-
-        <div class="tabs">
-            <button class="tab-button active" data-tab="workflow">🚀 Workflow</button>
-            <button class="tab-button" data-tab="commands">⚡ Commands</button>
-            <button class="tab-button" data-tab="automation">🤖 Automation</button>
-            <button class="tab-button" data-tab="tips">💎 Pro Tips</button>
-        </div>
-
-        <div id="workflow" class="tab-content active">
-            <div class="grid">
-                <div class="card">
-                    <h3><span class="icon">📁</span>Project Setup Workflow</h3>
-                    <ol class="step-list">
-                        <li>Create main folder: <span class="highlight">project-warehouse</span></li>
-                        <li>Open in VS Code (Right-click → Open with Code)</li>
-                        <li>Create project subfolders with meaningful names</li>
-                        <li>Move keeper projects into organized structure</li>
-                        <li>Delete unwanted snippets and experiments</li>
-                        <li>Add README.md to document your collection</li>
-                        <li>Initialize Git and push to GitHub</li>
-                    </ol>
-
+                    <!-- Additional tip for Workflow tab -->
                     <div class="tip">
-                        <p>
-                            Start with 1-2 projects, then add incrementally. This keeps commit history clean and makes
-                            each addition meaningful.
-                        </p>
+                        <p>Start with 1-2 projects, then add incrementally. This keeps commit history clean and makes
+                            each addition meaningful.</p>
                         <br>
-                        <p>
-                            This is the cycle! Make changes, git add, git commit, git push. Keep practicing this, and it
-                            will become second nature
-                        </p>
+                        <p>This is the cycle! Make changes, git add, git commit, git push. Keep practicing this, and it
+                            will become second nature</p>
                     </div>
+
                 </div>
 
-                <div class="card">
-                    <h3><span class="icon">🏗️</span>Folder Structure</h3>
-                    <div class="code-block" data-lang="Structure">
-                        <pre><code> 
-                            <div class="code-line">
-                        project-warehouse/
-                        ├── calculator/
-                        │ ├── index.html
-                        │ ├── style.css
-                        │ └── script.js
-                        ├── weather-widget/
-                        │ └── .gitkeep
-                        ├── tip-splitter/
-                        │ └── README.md
-                        ├── animation-lab/
-                        │ └── .gitkeep
-                        └── README.md
+                <!-- Commands Tab Content -->
+                <div class="tab-content" id="commands-content">
+                    <div class="grid">
+                        <div class="card">
+                            <h3><span class="icon">💻</span>Cross-Platform Commands</h3>
+
+                            <h4 style="color: var(--accent-color); margin: var(--spacing-md) 0;">Windows (PowerShell)
+                            </h4>
+                            <ol class="step-list">
+                                <li>Create folder: <code>mkdir project-warehouse</code></li>
+                                <li>Navigate: <code>cd project-warehouse</code></li>
+                                <li>Create file: <code>New-Item .gitkeep -ItemType File</code></li>
+                                <li>List contents: <code>ls</code> or <code>dir</code></li>
+                                <li>Copy folder: <code>Copy-Item -Recurse src dest</code></li>
+                                <li>Remove folder: <code>Remove-Item -Recurse folder</code></li>
+                            </ol>
+
+                            <h4 style="color: var(--accent-color); margin: var(--spacing-md) 0;">macOS/Linux (Bash)
+                            </h4>
+                            <ol class="step-list">
+                                <li>Create folder: <code>mkdir project-warehouse</code></li>
+                                <li>Navigate: <code>cd project-warehouse</code></li>
+                                <li>Create file: <code>touch .gitkeep</code></li>
+                                <li>List contents: <code>ls -la</code></li>
+                                <li>Copy folder: <code>cp -r src dest</code></li>
+                                <li>Remove folder: <code>rm -rf folder</code></li>
+                            </ol>
+
+                            <h4 style="color: var(--accent-color); margin: var(--spacing-md) 0;">Git Bash</h4>
+                            <ol class="step-list">
+                                <li>Create folder: <code>mkdir project-warehouse</code></li>
+                                <li>Navigate: <code>cd project-warehouse</code></li>
+                                <li>Create file: <code>touch .gitkeep</code></li>
+                                <li>List contents: <code>ls -la</code></li>
+                                <li>Copy folder: <code>cp -r src dest</code></li>
+                                <li>Remove folder: <code>rm -rf folder</code></li>
+                            </ol>
+                        </div>
+
+                        <div class="card">
+                            <h3><span class="icon">⚡</span>Essential Git Commands</h3>
+                            <ol class="step-list">
+                                <li>Initialize repository: <code>git init</code></li>
+                                <li>Stage all files: <code>git add .</code></li>
+                                <li>Commit with message: <code>git commit -m "Initial commit of project warehouse"</code></li>
+                                <li>Add remote origin:
+                                    <code>git remote add origin https://github.com/username/project-warehouse.git</code>
+                                </li>
+                                <li>Set main branch: <code>git branch -M main</code></li>
+                                <li>Push to GitHub: <code>git push -u origin main</code></li>
+                                <li>Add single project: <code>git add calculator/</code></li>
+                                <li>Commit project: <code>git commit -m "Add calculator project"</code></li>
+                                <li>Check status: <code>git status</code></li>
+                                <li>View commit history: <code>git log --oneline</code></li>
+                                <li>Create and switch branch: <code>git checkout -b feature-branch</code></li>
+                                <li>Switch to main: <code>git checkout main</code></li>
+                                <li>Merge branch: <code>git merge feature-branch</code></li>
+                            </ol>
+                        </div>
+
+                        <div class="card">
+                            <h3><span class="icon">🔧</span>Repository Creation</h3>
+                            <ol class="step-list">
+                                <li>Go to <span class="highlight">github.com</span></li>
+                                <li>Click <span class="highlight">New repository</span></li>
+                                <li>Name it <span class="highlight">project-warehouse</span></li>
+                                <li>Add description: "Frontend project collection"</li>
+                                <li>Keep it public (or private if preferred)</li>
+                                <li>Don't initialize with README (you'll add your own)</li>
+                                <li>Click <span class="highlight">Create repository</span></li>
+                            </ol>
+
+                            <div class="code-block" data-lang="Terminal">
+                                <pre><code>git remote add origin https://github.com/username/project-warehouse.git
+git branch -M main
+git push -u origin main
+</code></pre>
                             </div>
-                        </code></pre>
-                    </div>
+                        </div>
 
-                    <div class="tip">
-                        Use <span class="highlight">.gitkeep</span> or <span class="highlight">README.md</span> in empty
-                        folders so Git tracks them for future projects.
-                    </div>
-                </div>
+                        <div class="card">
+                            <h3><span class="icon">📋</span>Useful .gitignore</h3>
+                            <div class="code-block" data-lang="gitignore">
+                                <pre><code># Dependencies
+node_modules/
+npm-debug.log*
 
-                <div class="card">
-                    <h3><span class="icon">📝</span>README Template</h3>
-                    <div class="code-block" data-lang="Markdown">
-                        <pre><code>
-                        # Project Warehouse
+# IDE files
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
 
-                        A collection of my frontend projects and code experiments.
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
 
-                        ## Contents
+# Build outputs
+dist/
+build/
+*.min.js
+*.min.css
 
-                        - `/calculator` – Basic calculator with vanilla JS
-                        - `/weather-widget` – API-based weather display
-                        - `/tip-splitter` – Bill splitter for group dining
-                        - `/animation-lab` – CSS/JS animation experiments
+# Environment variables
+.env
+.env.local
 
-                        ## Usage
-
-                        Each project is self-contained. Open individual folders to explore.
-
-                        ## Tech Stack
-
-                        HTML5, CSS3, Vanilla JavaScript
-                        </code></pre>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <h3><span class="icon">🎯</span>Git Best Practices</h3>
-                    <ol class="step-list">
-                        <li>Initialize repo in main folder</li>
-                        <li>Add projects one by one with meaningful commits</li>
-                        <li>Use descriptive commit messages</li>
-                        <li>Create branches for major features</li>
-                        <li>Keep commits atomic and focused</li>
-                        <li>Use .gitignore for unwanted files</li>
-                    </ol>
-
-                    <div class="code-block" data-lang="Git">
-                        git add tip-splitter/
-                        git commit -m "Add tip splitter project with responsive design"
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="commands" class="tab-content">
-            <div class="grid">
-                <div class="card">
-                    <h3><span class="icon">💻</span>Cross-Platform Commands</h3>
-
-                    <h4 style="color: var(--accent-color); margin: var(--spacing-md) 0;">Windows (PowerShell)</h4>
-                    <ol class="step-list">
-                        <li>Create folder: <code>mkdir project-warehouse</code></li>
-                        <li>Navigate: <code>cd project-warehouse</code></li>
-                        <li>Create file: <code>New-Item .gitkeep -ItemType File</code></li>
-                        <li>List contents: <code>ls</code> or <code>dir</code></li>
-                        <li>Copy folder: <code>Copy-Item -Recurse src dest</code></li>
-                        <li>Remove folder: <code>Remove-Item -Recurse folder</code></li>
-                    </ol>
-
-                    <h4 style="color: var(--accent-color); margin: var(--spacing-md) 0;">macOS/Linux (Bash)</h4>
-                    <ol class="step-list">
-                        <li>Create folder: <code>mkdir project-warehouse</code></li>
-                        <li>Navigate: <code>cd project-warehouse</code></li>
-                        <li>Create file: <code>touch .gitkeep</code></li>
-                        <li>List contents: <code>ls -la</code></li>
-                        <li>Copy folder: <code>cp -r src dest</code></li>
-                        <li>Remove folder: <code>rm -rf folder</code></li>
-                    </ol>
-
-                    <h4 style="color: var(--accent-color); margin: var(--spacing-md) 0;">Git Bash</h4>
-                    <ol class="step-list">
-                        <li>Create folder: <code>mkdir project-warehouse</code></li>
-                        <li>Navigate: <code>cd project-warehouse</code></li>
-                        <li>Create file: <code>touch .gitkeep</code></li>
-                        <li>List contents: <code>ls -la</code></li>
-                        <li>Copy folder: <code>cp -r src dest</code></li>
-                        <li>Remove folder: <code>rm -rf folder</code></li>
-                    </ol>
-                </div>
-
-                <div class="card">
-                    <h3><span class="icon">⚡</span>Essential Git Commands</h3>
-                    <ol class="step-list">
-                        <li>Initialize repository: <code>git init</code></li>
-                        <li>Stage all files: <code>git add .</code></li>
-                        <li>Commit with message: <code>git commit -m "Initial commit of project warehouse"</code></li>
-                        <li>Add remote origin:
-                            <code>git remote add origin https://github.com/username/project-warehouse.git</code>
-                        </li>
-                        <li>Set main branch: <code>git branch -M main</code></li>
-                        <li>Push to GitHub: <code>git push -u origin main</code></li>
-                        <li>Add single project: <code>git add calculator/</code></li>
-                        <li>Commit project: <code>git commit -m "Add calculator project"</code></li>
-                        <li>Check status: <code>git status</code></li>
-                        <li>View commit history: <code>git log --oneline</code></li>
-                        <li>Create and switch branch: <code>git checkout -b feature-branch</code></li>
-                        <li>Switch to main: <code>git checkout main</code></li>
-                        <li>Merge branch: <code>git merge feature-branch</code></li>
-                    </ol>
-                </div>
-
-                <div class="card">
-                    <h3><span class="icon">🔧</span>Repository Creation</h3>
-                    <ol class="step-list">
-                        <li>Go to <span class="highlight">github.com</span></li>
-                        <li>Click <span class="highlight">New repository</span></li>
-                        <li>Name it <span class="highlight">project-warehouse</span></li>
-                        <li>Add description: "Frontend project collection"</li>
-                        <li>Keep it public (or private if preferred)</li>
-                        <li>Don't initialize with README (you'll add your own)</li>
-                        <li>Click <span class="highlight">Create repository</span></li>
-                    </ol>
-
-                    <div class="code-block" data-lang="Terminal">
-                        git remote add origin https://github.com/username/project-warehouse.git
-                        git branch -M main
-                        git push -u origin main
+# Temporary files
+*.tmp
+*.temp
+*.log
+</code></pre>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="card">
-                    <h3><span class="icon">📋</span>Useful .gitignore</h3>
-                    <div class="code-block" data-lang="gitignore">
-                        # Dependencies
-                        node_modules/
-                        npm-debug.log*
+                <!-- Automation Tab Content -->
+                <div class="tab-content" id="automation-content">
+                    <div class="grid">
+                        <div class="card">
+                            <h3><span class="icon">🤖</span>File Organization Script</h3>
+                            <p>Python script that automatically organizes files by type:</p>
 
-                        # IDE files
-                        .vscode/settings.json
-                        .idea/
-                        *.swp
-                        *.swo
+                            <ol class="step-list">
+                                <li>Install Python 3.x on your system</li>
+                                <li>Create new file: <code>organize_files.py</code></li>
+                                <li>Import required modules: <code>import os, shutil, pathlib</code></li>
+                                <li>Set watched directory: <code>WATCHED_DIR = Path.home() / "Downloads"</code></li>
+                                <li>Set destination: <code>DEST_DIR = Path.home() / "Organized"</code></li>
+                                <li>Define file type mappings for Images, Documents, Code, etc.</li>
+                                <li>Create organize_files() function</li>
+                                <li>Loop through files in watched directory</li>
+                                <li>Move files to appropriate category folders</li>
+                                <li>Run script: <code>python organize_files.py</code></li>
+                            </ol>
 
-                        # OS files
-                        .DS_Store
-                        Thumbs.db
-                        desktop.ini
+                            <div class="tip">
+                                Save as <span class="highlight">organize_files.py</span> and run with
+                                <code>python organize_files.py</code>
+                            </div>
+                        </div>
 
-                        # Build outputs
-                        dist/
-                        build/
-                        *.min.js
-                        *.min.css
+                        <div class="card">
+                            <h3><span class="icon">🖥️</span>System Tray Version</h3>
+                            <p>Convert the organizer into a system tray application:</p>
 
-                        # Environment variables
-                        .env
-                        .env.local
+                            <ol class="step-list">
+                                <li>Install dependencies: <code>pip install pystray pillow pyinstaller</code></li>
+                                <li>Create <code>file_organizer_tray.py</code> with GUI components</li>
+                                <li>Add system tray icon functionality</li>
+                                <li>Create right-click menu with Start/Stop options</li>
+                                <li>Build executable: <code>pyinstaller --onefile --noconsole file_organizer_tray.py</code></li>
+                                <li>Find your .exe in the <code>/dist</code> folder</li>
+                                <li>Add to Windows startup folder for auto-start</li>
+                                <li>Run executable to see system tray icon</li>
+                            </ol>
 
-                        # Temporary files
-                        *.tmp
-                        *.temp
-                        *.log
-                    </div>
-                </div>
-            </div>
-        </div>
+                            <p>Features:</p>
+                            <ul style="margin-top: var(--spacing-sm); padding-left: var(--spacing-md);">
+                                <li>Runs in system tray</li>
+                                <li>Right-click menu controls</li>
+                                <li>Auto-start on boot option</li>
+                                <li>Custom file type mapping</li>
+                                <li>Real-time monitoring</li>
+                            </ul>
+                        </div>
 
-        <div id="automation" class="tab-content">
-            <div class="grid">
-                <div class="card">
-                    <h3><span class="icon">🤖</span>File Organization Script</h3>
-                    <p>Python script that automatically organizes files by type:</p>
+                        <div class="card">
+                            <h3><span class="icon">⏰</span>Automation Schedule</h3>
+                            <p><strong>Windows Task Scheduler:</strong></p>
+                            <ol class="step-list">
+                                <li>Open Task Scheduler</li>
+                                <li>Create Basic Task</li>
+                                <li>Set trigger (hourly/daily)</li>
+                                <li>Action: Start Program</li>
+                                <li>Point to your .exe file</li>
+                            </ol>
 
-                    <ol class="step-list">
-                        <li>Install Python 3.x on your system</li>
-                        <li>Create new file: <code>organize_files.py</code></li>
-                        <li>Import required modules: <code>import os, shutil, pathlib</code></li>
-                        <li>Set watched directory: <code>WATCHED_DIR = Path.home() / "Downloads"</code></li>
-                        <li>Set destination: <code>DEST_DIR = Path.home() / "Organized"</code></li>
-                        <li>Define file type mappings for Images, Documents, Code, etc.</li>
-                        <li>Create organize_files() function</li>
-                        <li>Loop through files in watched directory</li>
-                        <li>Move files to appropriate category folders</li>
-                        <li>Run script: <code>python organize_files.py</code></li>
-                    </ol>
+                            <p><strong>macOS/Linux Cron Setup:</strong></p>
+                            <ol class="step-list">
+                                <li>Open terminal</li>
+                                <li>Edit crontab: <code>crontab -e</code></li>
+                                <li>Add hourly job: <code>0 * * * * /usr/bin/python3 /path/to/organize_files.py</code></li>
+                                <li>Add startup job: <code>@reboot /usr/bin/python3 /path/to/organize_files.py</code></li>
+                                <li>Save and exit editor</li>
+                                <li>Verify with: <code>crontab -l</code></li>
+                            </ol>
+                        </div>
 
-                    <div class="tip">
-                        Save as <span class="highlight">organize_files.py</span> and run with
-                        <code>python organize_files.py</code>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <h3><span class="icon">🖥️</span>System Tray Version</h3>
-                    <p>Convert the organizer into a system tray application:</p>
-
-                    <ol class="step-list">
-                        <li>Install dependencies: <code>pip install pystray pillow pyinstaller</code></li>
-                        <li>Create <code>file_organizer_tray.py</code> with GUI components</li>
-                        <li>Add system tray icon functionality</li>
-                        <li>Create right-click menu with Start/Stop options</li>
-                        <li>Build executable: <code>pyinstaller --onefile --noconsole file_organizer_tray.py</code></li>
-                        <li>Find your .exe in the <code>/dist</code> folder</li>
-                        <li>Add to Windows startup folder for auto-start</li>
-                        <li>Run executable to see system tray icon</li>
-                    </ol>
-
-                    <p>Features:</p>
-                    <ul style="margin-top: var(--spacing-sm); padding-left: var(--spacing-md);">
-                        <li>Runs in system tray</li>
-                        <li>Right-click menu controls</li>
-                        <li>Auto-start on boot option</li>
-                        <li>Custom file type mapping</li>
-                        <li>Real-time monitoring</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <h3><span class="icon">⏰</span>Automation Schedule</h3>
-                    <p><strong>Windows Task Scheduler:</strong></p>
-                    <ol class="step-list">
-                        <li>Open Task Scheduler</li>
-                        <li>Create Basic Task</li>
-                        <li>Set trigger (hourly/daily)</li>
-                        <li>Action: Start Program</li>
-                        <li>Point to your .exe file</li>
-                    </ol>
-
-                    <p><strong>macOS/Linux Cron Setup:</strong></p>
-                    <ol class="step-list">
-                        <li>Open terminal</li>
-                        <li>Edit crontab: <code>crontab -e</code></li>
-                        <li>Add hourly job: <code>0 * * * * /usr/bin/python3 /path/to/organize_files.py</code></li>
-                        <li>Add startup job: <code>@reboot /usr/bin/python3 /path/to/organize_files.py</code></li>
-                        <li>Save and exit editor</li>
-                        <li>Verify with: <code>crontab -l</code></li>
-                    </ol>
-                </div>
-
-                <div class="card">
-                    <h3><span class="icon">🚀</span>Quick Setup Scripts</h3>
-                    <p><strong>Project Creator Script Setup:</strong></p>
-                    <ol class="step-list">
-                        <li>Create new file: <code>create_project.sh</code></li>
-                        <li>Add shebang: <code>#!/bin/bash</code></li>
-                        <li>Get project name: <code>PROJECT_NAME=$1</code></li>
-                        <li>Create project folder: <code>mkdir -p "project-warehouse/$PROJECT_NAME"</code></li>
-                        <li>Navigate to folder: <code>cd "project-warehouse/$PROJECT_NAME"</code></li>
-                        <li>Create files: <code>touch index.html style.css script.js README.md</code></li>
-                        <li>Initialize README: <code>echo "# $PROJECT_NAME" > README.md</code></li>
-                        <li>Stage files: <code>git add .</code></li>
-                        <li>Commit: <code>git commit -m "Initialize $PROJECT_NAME project"</code></li>
-                        <li>Make executable: <code>chmod +x create_project.sh</code></li>
-                        <li>Use script: <code>./create_project.sh my-new-app</code></li>
-                    </ol>
-                </div>
-            </div>
-        </div>
-
-        <div id="tips" class="tab-content">
-            <div class="grid">
-                <div class="card">
-                    <h3><span class="icon">💎</span>Organization Pro Tips</h3>
-                    <ul style="padding-left: var(--spacing-md); space-y: var(--spacing-sm);">
-                        <li><strong>Naming Convention:</strong> Use kebab-case for folders (my-project)</li>
-                        <li><strong>Version Control:</strong> Commit early, commit often with clear messages</li>
-                        <li><strong>Documentation:</strong> Every project needs a README, even small ones</li>
-                        <li><strong>Dependencies:</strong> Use package.json even for vanilla JS projects</li>
-                        <li><strong>Backup Strategy:</strong> GitHub + local backups = peace of mind</li>
-                        <li><strong>Clean Commits:</strong> One feature per commit, descriptive messages</li>
-                    </ul>
-
-                    <div class="tip">
-                        Think of your project-warehouse as a museum of your learning journey. Each project tells a story
-                        of growth.
+                        <div class="card">
+                            <h3><span class="icon">🚀</span>Quick Setup Scripts</h3>
+                            <p><strong>Project Creator Script Setup:</strong></p>
+                            <ol class="step-list">
+                                <li>Create new file: <code>create_project.sh</code></li>
+                                <li>Add shebang: <code>#!/bin/bash</code></li>
+                                <li>Get project name: <code>PROJECT_NAME=$1</code></li>
+                                <li>Create project folder: <code>mkdir -p "project-warehouse/$PROJECT_NAME"</code></li>
+                                <li>Navigate to folder: <code>cd "project-warehouse/$PROJECT_NAME"</code></li>
+                                <li>Create files: <code>touch index.html style.css script.js README.md</code></li>
+                                <li>Initialize README: <code>echo "# $PROJECT_NAME" > README.md</code></li>
+                                <li>Stage files: <code>git add .</code></li>
+                                <li>Commit: <code>git commit -m "Initialize $PROJECT_NAME project"</code></li>
+                                <li>Make executable: <code>chmod +x create_project.sh</code></li>
+                                <li>Use script: <code>./create_project.sh my-new-app</code></li>
+                            </ol>
+                        </div>
                     </div>
                 </div>
 
-                <div class="card">
-                    <h3><span class="icon">🎨</span>Folder Structure Templates</h3>
-                    <p><strong>Simple Web Project:</strong></p>
-                    <div class="code-block" data-lang="Structure">
-                        <pre><code>
+                <!-- Pro Tips Tab Content -->
+                <div class="tab-content" id="pro-tips-content">
+                    <div class="grid">
+                        <div class="card">
+                            <h3><span class="icon">💎</span>Organization Pro Tips</h3>
+                            <ul style="padding-left: var(--spacing-md); space-y: var(--spacing-sm);">
+                                <li><strong>Naming Convention:</strong> Use kebab-case for folders (my-project)</li>
+                                <li><strong>Version Control:</strong> Commit early, commit often with clear messages</li>
+                                <li><strong>Documentation:</strong> Every project needs a README, even small ones</li>
+                                <li><strong>Dependencies:</strong> Use package.json even for vanilla JS projects</li>
+                                <li><strong>Backup Strategy:</strong> GitHub + local backups = peace of mind</li>
+                                <li><strong>Clean Commits:</strong> One feature per commit, descriptive messages</li>
+                            </ul>
+                            <div class="tip">
+                                Think of your project-warehouse as a museum of your learning journey. Each project tells a story
+                                of growth.
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h3><span class="icon">🎨</span>Folder Structure Templates</h3>
+                            <p><strong>Simple Web Project:</strong></p>
+                            <div class="code-block" data-lang="Structure">
+                                <pre><code>
 my-project/
 ├── index.html
 ├── css/
@@ -645,72 +410,324 @@ my-project/
 ├── assets/
 │   └── images/
 └── README.md
-    </code></pre>
-                    </div>
+</code></pre>
+                            </div>
 
-                    <p><strong>Advanced Project:</strong></p>
-                    <div class="code-block" data-lang="Structure">
-                        my-app/
-                        ├── src/
-                        │ ├── components/
-                        │ ├── styles/
-                        │ └── utils/
-                        ├── public/
-                        ├── tests/
-                        ├── docs/
-                        ├── .gitignore
-                        ├── package.json
-                        └── README.md
+                            <p><strong>Advanced Project:</strong></p>
+                            <div class="code-block" data-lang="Structure">
+                                <pre><code>my-app/
+├── src/
+│ ├── components/
+│ ├── styles/
+│ └── utils/
+├── public/
+├── tests/
+├── docs/
+├── .gitignore
+├── package.json
+└── README.md
+</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h3><span class="icon">🔥</span>Workflow Shortcuts</h3>
+                            <p><strong>VS Code Extensions:</strong></p>
+                            <ul style="padding-left: var(--spacing-md);">
+                                <li>GitLens - Enhanced Git capabilities</li>
+                                <li>Live Server - Instant local server</li>
+                                <li>Auto Rename Tag - HTML tag synchronization</li>
+                                <li>Prettier - Code formatting</li>
+                                <li>Bracket Pair Colorizer - Visual matching</li>
+                            </ul>
+
+                            <p><strong>VS Code Keyboard Shortcuts:</strong></p>
+                            <ol class="step-list">
+                                <li>Command Palette: <code>Ctrl/Cmd + Shift + P</code></li>
+                                <li>Toggle Terminal: <code>Ctrl/Cmd + `</code></li>
+                                <li>Toggle Sidebar: <code>Ctrl/Cmd + B</code></li>
+                                <li>Open Explorer: <code>Ctrl/Cmd + Shift + E</code></li>
+                                <li>Open Source Control: <code>Ctrl/Cmd + Shift + G</code></li>
+                                <li>Quick Open File: <code>Ctrl/Cmd + P</code></li>
+                                <li>Split Editor: <code>Ctrl/Cmd + \</code></li>
+                                <li>Close Editor: <code>Ctrl/Cmd + W</code></li>
+                            </ol>
+                        </div>
+
+                        <div class="card">
+                            <h3><span class="icon">🚨</span>Common Mistakes to Avoid</h3>
+                            <ul style="padding-left: var(--spacing-md);">
+                                <li><strong>Don't:</strong> Commit node_modules or build files</li>
+                                <li><strong>Don't:</strong> Use spaces in folder names (use-hyphens-instead)</li>
+                                <li><strong>Don't:</strong> Force push to main branch</li>
+                                <li><strong>Don't:</strong> Commit without testing first</li>
+                                <li><strong>Don't:</strong> Use generic commit messages like "update"</li>
+                                <li><strong>Don't:</strong> Store sensitive data in public repos</li>
+                            </ul>
+
+                            <div class="tip">
+                                When in doubt, create a branch. Branches are cheap, broken main branches are expensive.
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="card">
-                    <h3><span class="icon">🔥</span>Workflow Shortcuts</h3>
-                    <p><strong>VS Code Extensions:</strong></p>
-                    <ul style="padding-left: var(--spacing-md);">
-                        <li>GitLens - Enhanced Git capabilities</li>
-                        <li>Live Server - Instant local server</li>
-                        <li>Auto Rename Tag - HTML tag synchronization</li>
-                        <li>Prettier - Code formatting</li>
-                        <li>Bracket Pair Colorizer - Visual matching</li>
-                    </ul>
+                <!-- Shortlist Button (to open shortlist modal) - Remains fixed inside main modal -->
+                <div class="shortlist-button" onclick="openModal()">SHORTLIST</div>
 
-                    <p><strong>VS Code Keyboard Shortcuts:</strong></p>
-                    <ol class="step-list">
-                        <li>Command Palette: <code>Ctrl/Cmd + Shift + P</code></li>
-                        <li>Toggle Terminal: <code>Ctrl/Cmd + `</code></li>
-                        <li>Toggle Sidebar: <code>Ctrl/Cmd + B</code></li>
-                        <li>Open Explorer: <code>Ctrl/Cmd + Shift + E</code></li>
-                        <li>Open Source Control: <code>Ctrl/Cmd + Shift + G</code></li>
-                        <li>Quick Open File: <code>Ctrl/Cmd + P</code></li>
-                        <li>Split Editor: <code>Ctrl/Cmd + \</code></li>
-                        <li>Close Editor: <code>Ctrl/Cmd + W</code></li>
-                    </ol>
+            </div> <!-- End of <div class="container" id="mainFlowchartContent"> -->
+
+            <!-- Shortlist Modal (Internal Modal) -->
+            <div id="shortlistModal" class="modal-overlay">
+                <div class="modal-content">
+                    <span class="close-button" onclick="closeModal()">&times;</span>
+                    <h2 class="modal-title">Your Essential Git Commands Shortlist</h2>
+
+                    <div class="shortlist-item">
+                        <p>1. Check current status:</p>
+                        <code>git status</code>
+                        <p><strong>Use Case:</strong> Before adding or committing, this command shows you which
+                            files have been modified, are staged for commit, or are untracked. Essential for
+                            understanding your repository's state.</p>
+                    </div>
+
+                    <div class="shortlist-item">
+                        <p>2. Stage all changes:</p>
+                        <code>git add .</code>
+                        <p><strong>Use Case:</strong> Adds all new, modified, and deleted files in your current
+                            directory and its subdirectories to the staging area, preparing them for the next
+                            commit.</p>
+                    </div>
+
+                    <div class="shortlist-item">
+                        <p>3. Create a new file (Windows PowerShell):</p>
+                        <code>New-Item YourFileName.txt -ItemType File</code>
+                        <p><strong>Use Case:</strong> Quickly create new files directly from your VS Code
+                            terminal (if using PowerShell) for documentation, configuration, or new code files.
+                        </p>
+                    </div>
+                    <div class="shortlist-item">
+                        <p>3. Create a new file (Bash/Mac/Linux):</p>
+                        <code>touch YourFileName.txt</code>
+                        <p><strong>Use Case:</strong> The equivalent of `New-Item` for Bash/Unix-like
+                            environments, commonly used to create empty files.</p>
+                    </div>
+
+                    <div class="shortlist-item">
+                        <p>4. Commit with a descriptive message:</p>
+                        <code>git commit -m "Your descriptive commit message here"</code>
+                        <p><strong>Use Case:</strong> Saves your staged changes to your local repository's
+                            history. The message should clearly describe the changes made in that commit.</p>
+                        <h4>Refactor Commit Scenarios:</h4>
+                        <ul>
+                            <li><code>feat: Add user authentication module</code> (New Feature)</li>
+                            <li><code>fix: Resolve critical bug in login flow</code> (Bug Fix)</li>
+                            <li><code>docs: Update README with setup instructions</code> (Documentation)</li>
+                            <li><code>refactor: Improve naming conventions in user service</code> (Code
+                                Refactoring)</li>
+                            <li><code>chore: Update dependencies</code> (Maintenance/Chores)</li>
+                        </ul>
+                    </div>
+
+                    <div class="shortlist-item">
+                        <p>5. Initial push (only used initially for a new branch):</p>
+                        <code>git push -u origin main</code>
+                        <p><strong>Use Case:</strong> This command is typically used for the *first* push of a
+                            new branch (like `main`) to a remote repository. The `-u` flag sets the upstream
+                            branch, meaning `git push` (without arguments) will work for subsequent pushes.</p>
+                    </div>
+
+                    <div class="shortlist-item">
+                        <p>6. Subsequent pushes:</p>
+                        <code>git push</code>
+                        <p><strong>Use Case:</strong> After the initial push, this command is used to upload all
+                            your new local commits to the remote repository. Simpler because the upstream is
+                            already set.</p>
+                    </div>
+
+                    <div class="shortlist-item">
+                        <p>Juicy Extra 1: Interrupt a running command:</p>
+                        <code>Ctrl + C</code>
+                        <p><strong>Use Case:</strong> Crucial for stopping long-running processes, commands that
+                            are stuck, or if you accidentally initiated a command you didn't intend to. Works in
+                            most terminal environments (Windows, macOS, Linux).</p>
+                    </div>
+
+                    <div class="shortlist-item">
+                        <p>Juicy Extra 2: Print Working Directory:</p>
+                        <code>pwd</code> (Mac/Linux/Bash) <br>
+                        <code>Get-Location</code> or <code>cd</code> (Windows PowerShell, `cd` without arguments
+                        shows current directory)
+                        <p><strong>Use Case:</strong> Always know where you are! This command displays the full
+                            path of your current directory in the terminal. Essential for navigation and
+                            ensuring you're running commands in the correct location.</p>
+                    </div>
                 </div>
+            </div>
 
-                <div class="card">
-                    <h3><span class="icon">🚨</span>Common Mistakes to Avoid</h3>
-                    <ul style="padding-left: var(--spacing-md);">
-                        <li><strong>Don't:</strong> Commit node_modules or build files</li>
-                        <li><strong>Don't:</strong> Use spaces in folder names (use-hyphens-instead)</li>
-                        <li><strong>Don't:</strong> Force push to main branch</li>
-                        <li><strong>Don't:</strong> Commit without testing first</li>
-                        <li><strong>Don't:</strong> Use generic commit messages like "update"</li>
-                        <li><strong>Don't:</strong> Store sensitive data in public repos</li>
-                    </ul>
+            <!-- Step-by-Step Modal (Internal Modal) -->
+            <div id="stepModal" class="modal-overlay">
+                <div class="modal-content">
+                    <span class="close-button" onclick="closeStepModal()">&times;</span>
+                    <h2 class="modal-title" id="stepTitle"></h2>
 
-                    <div class="tip">
-                        When in doubt, create a branch. Branches are cheap, broken main branches are expensive.
+                    <div class="command-tabs">
+                        <!-- Tabs for switching between Windows and Bash commands -->
+                        <button class="command-tab active" data-system="windows"
+                            onclick="switchCommandSystem('windows')">Windows</button>
+                        <button class="command-tab" data-system="bash"
+                            onclick="switchCommandSystem('bash')">Bash</button>
+                    </div>
+
+                    <div class="command-content-wrapper">
+                        <div id="stepContent" class="command-display active">
+                            <!-- Dynamic content will be loaded here by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Commit Message Generator Modal (Internal AI Modal) -->
+            <div id="commitMessageGeneratorModal" class="modal-overlay">
+                <div class="modal-content">
+                    <span class="close-button" onclick="closeAIGeneratorModal()">&times;</span>
+                    <h2 class="modal-title">✨ AI Commit Message Generator</h2>
+                    <p>Describe the changes you've made in your code, and I'll suggest a concise Git commit
+                        message for you.</p>
+                    <textarea id="commitChangesInput" class="ai-input-area"
+                        placeholder="e.g., 'Added user login functionality and fixed a bug in the navigation bar.'"></textarea>
+                    <button class="ai-button" onclick="generateCommitMessage()">Generate Message ✨</button>
+                    <div id="loadingIndicatorCommit" class="loading-indicator" style="display: none;">
+                        <div class="loading-spinner"></div> Generating...
+                    </div>
+                    <div id="commitMessageOutput" class="ai-output-area">
+                        Your generated commit message will appear here.
+                    </div>
+                    <button class="copy-button mt-4" onclick="copyToClipboard(document.getElementById('commitMessageOutput'))">Copy Output</button>
+                </div>
+            </div>
+
+            <!-- Git Command Explainer Modal (Internal AI Modal) -->
+            <div id="commandExplainerModal" class="modal-overlay">
+                <div class="modal-content">
+                    <span class="close-button" onclick="closeAIExplainerModal()">&times;</span>
+                    <h2 class="modal-title">✨ AI Git Command Explainer</h2>
+                    <p>Enter any Git command (e.g., `git rebase -i`, `git cherry-pick`), and I'll explain it to
+                        you.</p>
+                    <input type="text" id="gitCommandInput" class="ai-input-area"
+                        placeholder="e.g., git merge --no-ff">
+                    <button class="ai-button" onclick="explainGitCommand()">Explain Command ✨</button>
+                    <div id="loadingIndicatorExplain" class="loading-indicator" style="display: none;">
+                        <div class="loading-spinner"></div> Explaining...
+                    </div>
+                    <div id="gitCommandExplanationOutput" class="ai-output-area">
+                        The explanation will appear here.
+                    </div>
+                    <button class="copy-button mt-4" onclick="copyToClipboard(document.getElementById('gitCommandExplanationOutput'))">Copy Explanation</button>
+                </div>
+            </div>
+
+            <!-- NEW: GitHub Integration Modal -->
+            <div id="gitHubIntegrationModal" class="modal-overlay">
+                <div class="modal-content wide-modal">
+                    <span class="close-button" onclick="closeGitHubIntegrationModal()">&times;</span>
+                    <h2 class="modal-title"><i class="fab fa-github"></i> GitHub Repository Viewer</h2>
+                    <p>Enter a public GitHub repository URL to view its recent commits.</p>
+                    <input type="text" id="githubRepoUrlInput" class="ai-input-area" placeholder="e.g., https://github.com/octocat/Spoon-Knife">
+                    <button class="ai-button" onclick="fetchGitHubCommits()"><i class="fab fa-github"></i> Fetch Commits</button>
+                    <div id="loadingIndicatorGithub" class="loading-indicator" style="display: none;">
+                        <div class="loading-spinner"></div> Fetching...
+                    </div>
+                    <div id="githubCommitsOutput" class="ai-output-area mt-4">
+                        Enter a GitHub repository URL (e.g., <code>https://github.com/octocat/Spoon-Knife</code>) and click "Fetch Commits".
+                    </div>
+                    <button class="copy-button mt-4" onclick="copyToClipboard(document.getElementById('githubCommitsOutput'))">Copy Output</button>
+                </div>
+            </div>
+
+        </div> <!-- End of main-guide-modal-content -->
+    </div> <!-- End of main-guide-modal-overlay -->
+
+    <!-- START: NEW Full-Page Modals for Guides & Troubleshooting -->
+    <!-- New Repository Setup Guide Modal (Content populated by JS) -->
+    <div id="newRepoSetupGuideModal" class="modal-overlay hidden">
+        <div class="modal-content wide-modal">
+            <span class="close-button" onclick="closeNewRepoSetupGuideModal()">&times;</span>
+            <!-- Content will be dynamically loaded here by script.js -->
+            <!-- The title and initial paragraph will be set by JS from guideContentData -->
+            <div class="container">
+                <h2 class="modal-title"></h2>
+                <p class="text-center opacity-80 mb-6"></p>
+                <!-- Actual guide steps will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Git Troubleshooting Guide Modal (Content populated by JS) -->
+    <div id="gitTroubleshootingGuideModal" class="modal-overlay hidden">
+        <div class="modal-content wide-modal">
+            <span class="close-button" onclick="closeGitTroubleshootingGuideModal()">&times;</span>
+            <!-- Content will be dynamically loaded here by script.js -->
+            <!-- The title and initial paragraph will be set by JS from guideContentData -->
+            <div class="container">
+                <h2 class="modal-title"></h2>
+                <p class="text-center opacity-80 mb-6"></p>
+                <!-- Actual guide steps will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Scenarios Modal Overlay (Entry point for guides) -->
+    <div id="scenariosModal" class="main-guide-modal-overlay hidden">
+        <div class="main-guide-modal-content wide-modal">
+            <span class="main-guide-close-button" onclick="closeScenariosModal()">&times;</span>
+            <div class="container">
+                <h2 class="modal-title">Git Scenarios & Guides</h2>
+
+                <p style="margin-bottom: var(--spacing-lg);">Choose a guide below to get step-by-step instructions
+                    or troubleshooting tips for common Git scenarios.</p>
+
+                <div class="flow-grid" style="margin-top: var(--spacing-lg);">
+                    <!-- Card to open New Repo Setup Guide -->
+                    <div class="flow-card" onclick="openNewRepoSetupGuideModal()">
+                        <div class="card-content">
+                            <h3><i class="fas fa-plus-circle icon"></i> New Repository Setup</h3>
+                            <p>Learn how to initialize a new Git repository, add files, make your first commit, and
+                                link it to GitHub.</p>
+                            <code class="text-xs">git init, git add, git commit, git remote add</code>
+                        </div>
+                    </div>
+
+                    <!-- Card to open Git Troubleshooting Guide -->
+                    <div class="flow-card" onclick="openGitTroubleshootingGuideModal()">
+                        <div class="card-content">
+                            <h3><i class="fas fa-wrench icon"></i> Git Troubleshooting</h3>
+                            <p>Find solutions for common Git issues like merge conflicts, detached HEAD, reverting
+                                changes, and more.</p>
+                            <code class="text-xs">git status, git log, git reset, git revert, git rebase</code>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <!-- END: NEW Full-Page Modals for Guides & Troubleshooting -->
 
+
+    <!-- Theme Toggle Button - Remains outside any specific modal for global access -->
+    <button class="button-theme-toggle" margin-right="15px" onclick="toggleTheme()">
+        <i class="fas fa-adjust" margin-right="15px"></i>
+    </button>
+
+    <!-- Floating Action Button for Scroll to Top -->
     <div class="floating-action" onclick="scrollToTop()">
-        ↑
+        <i class="fas fa-arrow-up"></i>
     </div>
 
+    <!-- External JavaScript Libraries (place at end of body for performance) -->
+    <!-- Marked.js for Markdown parsing (for AI Explainer) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.0.0/marked.min.js"></script>
+    <!-- Your Custom JavaScript -->
     <script src="script.js"></script>
 </body>
 
